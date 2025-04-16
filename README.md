@@ -2,50 +2,76 @@
 
 ## Overview
 
-**Ganit‑V1** is a 14 billion‑parameter language model optimized for multi‑step chain‑of‑thought reasoning across very long contexts (up to 16,384 tokens). It achieves strong pass@1 and consistency@64 scores on challenging benchmarks, striking a practical balance between answer accuracy and reasoning coherence. This repository provides the trained model weights, evaluation scripts, and result visualizations to help you integrate and assess Ganit‑V1 in your own workflows.
 
-## Datasets
+**Ganit-V1** is a 14-billion parameter language model fine-tuned for **mathematical reasoning** using a multi-stage pipeline that emphasizes **accuracy**, **conciseness**, and **robustness** across varying levels of problem difficulty.
 
-### Dataset 1: RL Compression Data
+---
 
-We begin by sampling multiple responses for each question from the R1‑distill‑14B model solely to compute solve rates. Each chain is truncated at 6000 tokens—if a solution requires more than this budget, that sample is marked incorrect. We then calculate the solve rate as the fraction of truncated chains that still arrive at the correct answer. Finally, we filter to those questions whose truncated solve rate lies between 0 and 0.5. This filtered set of problems drives the RL compression phase, guiding Ganit‑V1 to focus on questions that are challenging under a tight token budget.
+## 🧮 Data Collection and Preprocessing
 
-### Dataset 2: SFT Shortest Chains
+Our journey begins by curating a high-quality mathematical corpus from several open-source datasets:
 
-The second dataset focuses on **conciseness**.Sampling multiple responses per question from the R1-distill-14B, we identify which responses are correct and then pick the **shortest** chain of thought among them. These shortest‑correct examples form the training data for our supervised fine‑tuning stage, guiding Ganit‑V1 to elaborate its reasoning only as much as necessary when chain length is at a premium.
+- **Open-R1**
+- **Light-R1**
+- **Numina – Olympiads & AOPS_forum**
+- **II-Thoughts**
+- **OMNI-math**
 
-### Dataset 3: Curriculum‑Learning Data
+After rigorous deduplication and decontamination, we consolidated approximately **100,000 unique problems**, forming the foundation for all subsequent training stages.
 
-For our curriculum‑learning set, we start with the R1‑distill‑14B checkpoint and annotate each question’s difficulty using the o3‑mini evaluator on the open‑R1 benchmark. We retain only those questions rated at difficulty 5 or above. Next, we recompute solve rates via multiple samplings from the 14 billion‑parameter model and filter to problems with solve rates between 0.2 and 0.6. By ordering this subset from easier to harder across training epochs, we enable a curriculum learning strategy that gradually exposes Ganit‑V1 to more challenging reasoning tasks.
+---
 
-## Training Strategy
+## 📊 Estimating Problem Difficulty and Response Quality
 
-1. **Model 1 (RL Compression)**  
-   - **Base checkpoint**: R1‑distill‑14B  
-   - **Data**: Dataset 1  
-   - **Context length**: 6 000 tokens  
-   - **Objective**: Reinforcement learning to compress reasoning chains without losing accuracy.  
+To facilitate informed data curation, we utilize the **R1-Distill-14B** model to sample multiple response chains per question. Each response chain is truncated at **6000 tokens** — if a solution requires more than this limit, that sample is discarded. We define the **solve rate** as the fraction of chains that reach the correct answer within this truncation limit. This solve rate acts as a proxy for **problem difficulty** and acts as a useful metric for **data selection** during various training stages.
 
-   In this phase, Ganit‑V1 learns to identify and retain only the most critical inference steps. By rewarding shorter chains that still produce correct answers under a strict 6 000‑token budget, the model internalizes a preference for brevity. This compressed reasoning capability serves as a foundation for more efficient inference in resource‑constrained settings.
+---
 
-2. **Model 2 (SFT Decompression)**  
-   - **Base checkpoint**: Model 1  
-   - **Data**: Dataset 2  
-   - **Objective**: Supervised fine‑tuning to decompress and elaborate reasoning chains, guided by the shortest correct examples.  
+## 🧠 Training Pipeline
 
-   We specifically use the **shortest** correct chains as training examples because they represent the minimal set of inference steps necessary for correctness. By learning from these efficient yet complete chains, Ganit‑V1 acquires the ability to add explanatory detail only where it is needed—avoiding redundant or tangential reasoning while ensuring that every critical step is articulated clearly.
+### 🔹 Stage 1: Reinforcement Learning for Compression
 
-3. **Model 3 (Curriculum SFT)**  
-   - **Base checkpoint**: R1‑distill‑14B  
-   - **Data**: Dataset 3  
-   - **Method**: Curriculum learning SFT—each epoch progresses from easier to harder questions.  
+In the first training phase, we aim to instill the model with a preference for **brevity** without compromising **correctness**. Using a filtered subset of questions whose **solve rates** fall between **0.0 and 0.5**, we retain only the correct response chains that complete within the **6,000-token budget**. This subset forms the **RL Compression dataset**.
 
-   To bolster robustness on challenging problems, we employ a curriculum learning schedule. Starting with moderate‑difficulty questions and gradually increasing complexity, Ganit‑V1 develops a scaffolded understanding of multi‑step reasoning. This staged approach prevents early overfitting on hard examples and ensures steady performance gains across difficulty levels.
+Starting from the **R1-Distill-14B** checkpoint, we fine-tune the model with a **reinforcement learning objective**: reward shorter chains that have reached the correct answer. This **compression-centric** approach teaches the model to preserve only the most **essential inference steps**, laying the groundwork for **efficient reasoning** in resource-constrained settings.
 
 
-4. **Final Model (Ganit‑V1)**  
-   - **Components merged**: Model 2 (SFT Decompression) and Model 3 (Curriculum SFT)  
-   - **Purpose of merging**: Combining the strengths of both branches creates a versatile model that can generate concise, clear explanations when brevity is important (from Model 2) while maintaining strong performance on difficult reasoning tasks learned through the curriculum schedule (from Model 3). The resulting Ganit‑V1 seamlessly adapts its chain‑of‑thought style to the demands of each question and available context.
+
+---
+
+### 🔹 Stage 2: Supervised Fine-Tuning for Decompression
+
+Building on the compressed model from Stage 1, we next train the model to **decompress and elaborate its reasoning**, which is particularly necessary for solving more difficult problems. Again, using multiple sampled responses from the **R1-14B** model, we identify all **correct response chains** and select the **shortest correct chain per question** to form the **SFT Shortest Chains dataset**.
+
+These shortest correct chains serve as ideal demonstrations of **minimal yet sufficient reasoning**. Through **supervised fine-tuning**, the model learns to explain its reasoning in a more **precise and efficient** manner — elaborating only when necessary and avoiding **redundant or tangential steps**. This results in a model capable of **clear and concise mathematical reasoning**.
+
+---
+
+### 🔹 Stage 3: Curriculum Learning for Robust Reasoning
+
+Finally, we develop a third branch focused on improving the model’s performance on **hard problems**. Using the **93K Open-R1 dataset**, we annotate question difficulty on a scale from **1 to 10** using **OpenAI's o3mini**. We retain questions rated **5 or above**, and further filter them by **solve rates between 0.2 and 0.6**, as estimated from multiple **14B model** responses.
+
+This filtered subset becomes the **Curriculum Learning dataset**. We resume training from the **R1-Distill-14B** checkpoint, applying a **curriculum schedule** that gradually increases problem difficulty across training epochs. This **scaffolding** allows the model to build confidence on **moderately difficult questions** before confronting more **complex math problems**, reducing the risk of **early overfitting** and improving overall **robustness**.
+
+
+---
+
+## 🧩 Final Integration: Ganit-V1
+
+The final model, **Ganit-V1**, merges the strengths of 2 resultant models from the aforementioned training stages:
+
+- **Model 2 (SFT Decompression)** contributes the ability to generate efficient, well-articulated reasoning chains that are as brief as they are correct.
+- **Model 3 (Curriculum SFT)** enhances resilience on difficult problems and promotes stepwise learning across complexity levels.
+
+By combining these capabilities, **Ganit-V1** maximizes its potential of solving highly complicated math problems accurately, while simultaneously offering a **concise explanation** for the same.
+
+
+---
+
+
+
+
+
 
 
 ## Evaluation
@@ -67,31 +93,33 @@ This setup allows us to benchmark Ganit‑V1’s reasoning performance and stabi
 We utilize the evaluation framework provided by the [LIMO](https://github.com/GAIR-NLP/LIMO) repository to run inference and compute metrics.
 
 ## Results
+We evaluate and compare **Ganit‑V1** with several baseline models across 3 challenging benchmarks:  **AIME25**, **HMMT25**, and **GPQA**. For each, we report `pass@1` and `cons@64`, following the same evaluation configuration.
 
-We evaluate **Ganit‑V1** and several baseline models across four benchmarks: **AIME24**, **AIME25**, **HMMT25**, and **GPQA**. For each, we report `pass@1` and `cons@64`, following the same evaluation configuration.
+| Model            | AIME25         |               | HMMT25         |               |
+|------------------|----------------|---------------|----------------|---------------|
+|                  | pass@1         | cons@64       | pass@1         | cons@64       |
+| LightR1‑14B      | 51.15          | 76.67         | 34.11          | 50.00         |
+| R1‑distill‑14B   | 45.5           | 63.33         | 30.00          | 50.00         |
+| R1‑distill‑32B   | 49.64          | 73.33         | 33.02          | 53.33         |
+| R1‑670B          | 61.25          | 83.33         | 42.19          | 56.67         |
+| **Ganit‑V1‑14B**🟩 | **51.88**      | **76.67**     | **35.78**      | **56.66**     |
+| o1‑mini          | 50.71          | 63.33         | 35.15          | 46.67         |
+| o3‑mini‑low      | 42.6           | 53.33         | 26.61          | 33.33         |
+| o3‑mini‑medium   | 72.24          | 83.33         | 49.21          | 60.00         |
+| o1‑preview       | 33.33          | 36.67         | 17.78          | 20.00         |
+| gpt‑4.5‑preview  | 34.44          | 40.00         | 16.67          | 20.00         |
+| Model 2          | 50.94          | 73.33         | 33.7           | 40.00         |
+| Model 3          | 50.63          | 76.67         | 32.19          | 50.00         |
 
-| Model            | AIME24        |              | AIME25        |              | HMMT25        |              |
-|------------------|---------------|--------------|---------------|--------------|---------------|--------------|
-|                  | pass@1        | cons@64      | pass@1        | cons@64      | pass@1        | cons@64      |
-| LightR1‑14B      | 68.8          | 86.67        | 51.15         | 76.67        | 34.11         | 50.00        |
-| R1‑distill‑14B   | 63.8          | 80.00        | 45.5          | 63.33        | 30.00         | 50.00        |
-| R1‑distill‑32B   | 66.8          | 83.33        | 49.64         | 73.33        | 33.02         | 53.33        |
-| R1‑670B          | 75.52         | 86.67        | 61.25         | 83.33        | 42.19         | 56.67        |
-|  **Ganit‑V1‑14B**🟩 | **68.13**     | **83.33**    | **51.88**     | **76.67**    | **35.78**     | **56.66**    |
-| o1‑mini          | 60.05         | 80.00        | 50.71         | 63.33        | 35.15         | 46.67        |
-| o3‑mini‑low      | 57.44         | 66.67        | 42.6          | 53.33        | 26.61         | 33.33        |
-| o3‑mini‑medium   | 77.39         | 90.00        | 72.24         | 83.33        | 49.21         | 60.00        |
-| o1‑preview       | 48.89         | 56.66        | 33.33         | 36.67        | 17.78         | 20.00        |
-| gpt‑4.5‑preview  | 37.78         | 43.33        | 34.44         | 40.00        | 16.67         | 20.00        |
-| Model 2          | 66.8          | 83.33        | 50.94         | 73.33        | 33.7          | 40.00        |
-| Model 3          | 63.8          | 83.33        | 50.63         | 76.67        | 32.19         | 50.00        |
 
-**Ganit‑V1** demonstrates competitive performance across all datasets, improving over the original distill checkpoints and closely matching or surpassing other strong baselines in several settings. Its consistency across diverse mathematical domains highlights its balanced reasoning ability.
+**Ganit‑V1** demonstrates highly competitive performance across all datasets, improving over the original R1-distilled models while closely matching or surpassing other strong baselines in several settings. 
+On both AIME 25 and HMMT 25, our model shows the highest pass@1 as well as cons@64 scores among all the open-source models (including the bigger R1-Distilled-32B model), with R1-670B being the only exception.
+In fact, we observe that Ganit-V1 is superior to even some of the OpenAI reasoning models, including o1-mini and o3-mini (low).
+Its consistency across diverse mathematical domains highlights its balanced reasoning ability.
 
-Notably, we also observe out-of-domain improvement in **GPQA**, indicating that training on mathematics-focused datasets potentially facilitates generalization across diverse domains.
-
+Notably, we also observe out-of-domain improvement in **GPQA**, even though there wasn't a single instance of science reasoning based questions in our training data. 
+This indicates that training solely on mathematics-focused datasets potentially facilitates generalization across diverse domains, a finding similar to what Light-R1 had observed.
 #### ✅ GPQA Benchmark Comparison
-
 | **Model**         | **pass@1** | **cons@64** |
 |-------------------|------------|-------------|
 | LightR1‑14B       | 56.94      | 65.15       |
@@ -101,20 +129,14 @@ Notably, we also observe out-of-domain improvement in **GPQA**, indicating that 
 | **Ganit‑V1‑14B**🟩  | **59.13**  | **66.16**   |
 | Model 2           | 56.35      | 66.67       |
 | Model 3           | 58.91      | 63.13       |
-
-
 ### Response Length Ablation
-
 To assess reasoning efficiency, we compare the **average response lengths** across AIME24, AIME25, and HMMT25. While models like **Light-R1**,  **R1-distill‑14B** and **Model 3** tend to generate longer chains, **Ganit‑V1‑14B** consistently produces **more concise responses** without sacrificing performance. This reflects its two-stage training strategy—compressing reasoning via RL and then selectively decompressing only essential steps through SFT.
-
-
 #### Average Response Length (Tokens)
 
-| Model            | AIME24 | AIME25 | HMMT25 |
-|------------------|--------|--------|--------|
-| Light-R1         | 10144  | 11330  | 12680  |
-| R1-distill-14B   | 9626   | 10878  | 12263  |
-| Ganit-V1-14B     | 9532   | 10083  | 12100  |
-| Model 2          | 9529   | 10570  | 11950  |
-| Model 3          | 10045  | 11236  | 12717  |
-
+| Model            | AIME25 | HMMT25 |
+|------------------|--------|--------|
+| Light-R1         | 11330  | 12680  |
+| R1-distill-14B   | 10878  | 12263  |
+| Ganit-V1-14B     | 10083  | 12100  |
+| Model 2          | 10570  | 11950  |
+| Model 3          | 11236  | 12717  |
