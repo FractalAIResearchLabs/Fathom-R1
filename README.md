@@ -1,9 +1,9 @@
-# Ganit‑V1: An Adaptive Model for Reasoning Chain Compression and Decompression
+# Ramanujan-Ganit‑R1-V1
 
 
 <div align="center">
 
-[![Hugging Face ‑ Ganit‑V1-14B](https://img.shields.io/badge/HuggingFace‑Ganit--14B‑FFD21E?logo=HuggingFace&style=for-the-badge)](https://huggingface.co/Fractal-AIRP/Ganit-14B)
+[![Hugging Face ‑ Ramanujan-Ganit‑R1-V1](https://img.shields.io/badge/HuggingFace‑Ganit--14B‑FFD21E?logo=HuggingFace&style=for-the-badge)](https://huggingface.co/Fractal-AIRP/Ganit-14B)
 
 </div>
 
@@ -12,7 +12,7 @@
 
 ## Overview
 
-**Ganit-V1** is a 14-billion parameter language model fine-tuned for **mathematical reasoning** using a multi-stage pipeline that emphasizes **accuracy**, **conciseness**, and **robustness** across varying levels of problem difficulty.
+**Ramanujan-Ganit-R1-V1** is a 14-billion parameter language model fine-tuned for **mathematical reasoning** using a multi-stage pipeline that emphasizes **accuracy**, **conciseness**, and **robustness** across varying levels of problem difficulty.
 
 ---
 
@@ -53,6 +53,7 @@ Starting from the **R1-Distill-14B** checkpoint, we train the model using **GRPO
 Building on the compressed model from Stage 1, we next train the model to **decompress and elaborate its reasoning**, which is particularly necessary for solving more difficult problems. Again, using multiple sampled responses from the **R1-14B** model, we identify all **correct response chains** and select the **shortest correct chain per question** to form the **SFT Shortest Chains dataset**.
 
 These shortest correct chains serve as ideal demonstrations of **minimal yet sufficient reasoning**. Through **supervised fine-tuning**, the model learns to explain its reasoning in a more **precise and efficient** manner — elaborating only when necessary and avoiding **redundant or tangential steps**. This results in a model capable of **clear and concise mathematical reasoning**.
+We name this model **Ramanujan-Ganit-R1-V0.4**
 
 ---
 
@@ -61,18 +62,19 @@ These shortest correct chains serve as ideal demonstrations of **minimal yet suf
 Finally, we develop a third branch focused on improving the model’s performance on **hard problems**. Using the **93K Open-R1 dataset**, we annotate question difficulty on a scale from **1 to 10** using **OpenAI's o3mini**. We retain questions rated **5 or above**, and further filter them by **solve rates between 0.2 and 0.6**, as estimated from multiple **14B model** responses.
 
 This filtered subset becomes the **Curriculum Learning dataset**. We resume training from the **R1-Distill-14B** checkpoint, applying a **curriculum schedule** that gradually increases problem difficulty across training epochs. This **scaffolding** allows the model to build confidence on **moderately difficult questions** before confronting more **complex math problems**, reducing the risk of **early overfitting** and improving overall **robustness**.
+We name this model **Ramanujan-Ganit-R1-V0.6**
 
 
 ---
 
-## 🧩 Final Integration: Ganit-V1
+## 🧩 Final Integration: Ramanujan-Ganit-R1-V1
 
-The final model, **Ganit-V1**, merges the strengths of 2 resultant models from the aforementioned training stages:
+The final model, **Ramanujan-Ganit-R1-V1**, merges the strengths of 2 resultant models from the aforementioned training stages:
 
-- **Model 2 (SFT Decompression)** contributes the ability to generate efficient, well-articulated reasoning chains that are as brief as they are correct.
-- **Model 3 (Curriculum SFT)** enhances resilience on difficult problems and promotes stepwise learning across complexity levels.
+- **Ramanujan-Ganit-R1-V0.4 (SFT Decompression)** contributes the ability to generate efficient, well-articulated reasoning chains that are as brief as they are correct.
+- **Ramanujan-Ganit-R1-V0.6 (Curriculum SFT)** enhances resilience on difficult problems and promotes stepwise learning across complexity levels.
 
-By combining these capabilities, **Ganit-V1** maximizes its potential of solving highly complicated math problems accurately, while simultaneously offering a **concise explanation** for the same.
+By combining these capabilities, **Ramanujan-Ganit-R1-V1** maximizes its potential of solving highly complicated math problems accurately, while simultaneously offering a **concise explanation** for the same.
 
 
 ---
@@ -85,7 +87,7 @@ By combining these capabilities, **Ganit-V1** maximizes its potential of solving
 
 ## Evaluation
 
-We evaluate Ganit‑V1 using the same metrics and sampling configuration introduced in the DeepSeek‑R1 paper, namely **pass@1** and **cons@64**. However, our evaluation is conducted under a reduced context window of 16,384 tokens, compared to DeepSeek‑R1’s 32,768 tokens, to better reflect practical deployment constraints.
+We evaluate Ramanujan-Ganit‑R1-V1 using the same metrics and sampling configuration introduced in the DeepSeek‑R1 paper, namely **pass@1** and **cons@64**. However, our evaluation is conducted under a reduced context window of 16,384 tokens, compared to DeepSeek‑R1’s 32,768 tokens, to better reflect practical deployment constraints.
 
 - **pass@1**: Measures the fraction of problems correctly solved in the first generated sample.
 - **cons@64**: Assesses consistency by sampling 64 reasoning chains per question and computing the majority vote accuracy.
@@ -97,12 +99,12 @@ We evaluate Ganit‑V1 using the same metrics and sampling configuration introdu
 - Number of sampled chains: 64  
 - Context window: 16,384 tokens  
 
-This setup allows us to benchmark Ganit‑V1’s reasoning performance and stability under realistic memory and inference budgets, while maintaining compatibility with the DeepSeek‑R1 evaluation protocol.
+This setup allows us to benchmark Ramanujan-Ganit-R1‑V1’s reasoning performance and stability under realistic memory and inference budgets, while maintaining compatibility with the DeepSeek‑R1 evaluation protocol.
 
 We utilize the evaluation framework provided by the [LIMO](https://github.com/GAIR-NLP/LIMO) repository to run inference and compute metrics.
 
 ## Results
-We evaluate and compare **Ganit‑V1** with several baseline models across 3 challenging benchmarks:  **AIME25**, **HMMT25**, and **GPQA**. For each, we report `pass@1` and `cons@64`, following the same evaluation configuration.
+We evaluate and compare **Ramanujan-Ganit‑R1-V1** with several baseline models across 3 challenging benchmarks:  **AIME25**, **HMMT25**, and **GPQA**. For each, we report `pass@1` and `cons@64`, following the same evaluation configuration.
 
 | Model            | AIME25         |               | HMMT25         |               |
 |------------------|----------------|---------------|----------------|---------------|
@@ -111,19 +113,19 @@ We evaluate and compare **Ganit‑V1** with several baseline models across 3 cha
 | R1‑distill‑14B   | 45.5           | 63.33         | 30.00          | 50.00         |
 | R1‑distill‑32B   | 49.64          | 73.33         | 33.02          | 53.33         |
 | R1‑670B          | 61.25          | 83.33         | 42.19          | 56.67         |
-| **Ganit‑V1‑14B**🟩 | **51.88**      | **76.67**     | **35.78**      | **56.66**     |
+| **Ramanujan-Ganit‑R1-V1**🟩 | **51.88**      | **76.67**     | **35.78**      | **56.66**     |
 | o1‑mini          | 50.71          | 63.33         | 35.15          | 46.67         |
 | o3‑mini‑low      | 42.6           | 53.33         | 26.61          | 33.33         |
 | o3‑mini‑medium   | 72.24          | 83.33         | 49.21          | 60.00         |
 | o1‑preview       | 33.33          | 36.67         | 17.78          | 20.00         |
 | gpt‑4.5‑preview  | 34.44          | 40.00         | 16.67          | 20.00         |
-| Model 2          | 50.94          | 73.33         | 33.7           | 40.00         |
-| Model 3          | 50.63          | 76.67         | 32.19          | 50.00         |
+| Ramanujan-Ganit‑R1-V0.4         | 50.94          | 73.33         | 33.7           | 40.00         |
+| Ramanujan-Ganit‑R1-V0.6          | 50.63          | 76.67         | 32.19          | 50.00         |
 
 
-**Ganit‑V1** demonstrates highly competitive performance across all datasets, improving over the original R1-distilled models while closely matching or surpassing other strong baselines in several settings. 
+**Ramanujan-Ganit‑R1-V1** demonstrates highly competitive performance across all datasets, improving over the original R1-distilled models while closely matching or surpassing other strong baselines in several settings. 
 On both AIME 25 and HMMT 25, our model shows the highest pass@1 as well as cons@64 scores among all the open-source models (including the bigger R1-Distilled-32B model), with R1-670B being the only exception.
-In fact, we observe that Ganit-V1 is superior to even some of the OpenAI reasoning models, including o1-mini and o3-mini (low).
+In fact, we observe that Ramanujan-Ganit-R1-V1 is superior to even some of the OpenAI reasoning models, including o1-mini and o3-mini (low).
 Its consistency across diverse mathematical domains highlights its balanced reasoning ability.
 
 Notably, we also observe out-of-domain improvement in **GPQA**, even though there wasn't a single instance of science reasoning based questions in our training data. 
@@ -135,17 +137,17 @@ This indicates that training solely on mathematics-focused datasets potentially 
 | R1‑distill‑14B    | 54.19      | 64.14       |
 | R1‑distill‑32B    | 64.57      | 69.70       |
 | R1‑670B           | 71.88      | 74.24       |
-| **Ganit‑V1‑14B**🟩  | **59.13**  | **66.16**   |
-| Model 2           | 56.35      | 66.67       |
-| Model 3           | 58.91      | 63.13       |
+| **Ramanujan-Ganit‑R1-V1**🟩  | **59.13**  | **66.16**   |
+| Ramanujan-Ganit‑R1-V0.4           | 56.35      | 66.67       |
+| Ramanujan-Ganit‑R1-V0.6           | 58.91      | 63.13       |
 ### Ablation Study on Response Length
-To assess reasoning efficiency, we compare the **average response lengths** across  AIME25, and HMMT25. While models like **Light-R1**,  **R1-distill‑14B** and **Model 3** tend to generate longer chains, **Ganit‑V1‑14B** consistently produces **more concise responses** without sacrificing performance. This reflects its two-stage training strategy—compressing reasoning via RL and then selectively decompressing only essential steps through SFT.
+To assess reasoning efficiency, we compare the **average response lengths** across  AIME25, and HMMT25. While models like **Light-R1**,  **R1-distill‑14B** and **Model 3** tend to generate longer chains, **Ramanujan-Ganit‑R1-V1** consistently produces **more concise responses** without sacrificing performance. This reflects its two-stage training strategy—compressing reasoning via RL and then selectively decompressing only essential steps through SFT.
 #### Average Response Length (Tokens)
 
 | Model            | AIME25 | HMMT25 |
 |------------------|--------|--------|
 | Light-R1         | 11330  | 12680  |
 | R1-distill-14B   | 10878  | 12263  |
-| Ganit-V1-14B     | 10083  | 12100  |
-| Model 2          | 10570  | 11950  |
-| Model 3          | 11236  | 12717  |
+| Ramanujan-Ganit‑R1-V1     | 10083  | 12100  |
+| Ramanujan-Ganit‑R1-V0.4          | 10570  | 11950  |
+| Ramanujan-Ganit‑R1-V0.6         | 11236  | 12717  |
