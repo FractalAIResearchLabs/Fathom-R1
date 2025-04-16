@@ -152,5 +152,5 @@ To assess reasoning efficiency, we compare the **average response lengths** acro
 | R1-distill-14B   | 10878  | 12263  |
 | Ramanujan-Ganit‑R1-V0.4          | 10570  | 11950  |
 | Ramanujan-Ganit‑R1-V0.6         | 11236  | 12717  |
-| Ramanujan-Ganit‑R1-V1     | 10083  | 12100  |
+| **Ramanujan-Ganit‑R1-V1**🟩      | 10083  | 12100  |
 
