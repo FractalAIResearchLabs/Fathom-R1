@@ -1,7 +1,14 @@
 # Ganit‑V1: An Adaptive Model for Reasoning Chain Compression and Decompression
 
-## Overview
 
+<div align="center">
+
+[![Hugging Face ‑ Ganit‑V1-14B](https://img.shields.io/badge/HuggingFace‑Ganit--14B‑FFD21E?logo=HuggingFace&style=for-the-badge)](https://huggingface.co/Fractal-AIRP/Ganit-14B)
+
+</div>
+
+
+## Overview
 
 **Ganit-V1** is a 14-billion parameter language model fine-tuned for **mathematical reasoning** using a multi-stage pipeline that emphasizes **accuracy**, **conciseness**, and **robustness** across varying levels of problem difficulty.
 
