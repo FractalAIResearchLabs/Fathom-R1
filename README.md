@@ -1,4 +1,4 @@
-# Ganit‑R1: An Adaptive Model for Reasoning Chain Compression and Decompression
+# Ganit‑V1: An Adaptive Model for Reasoning Chain Compression and Decompression
 
 ## Overview
 
