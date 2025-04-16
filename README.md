@@ -23,7 +23,7 @@ After rigorous deduplication and decontamination, we consolidated approximately 
 
 ## 📊 Estimating Problem Difficulty and Response Quality
 
-To facilitate informed data curation, we utilize the **R1-Distill-14B** model to sample multiple response chains per question. Each response chain is truncated at **6000 tokens** — if a solution requires more than this limit, that sample is discarded. We define the **solve rate** as the fraction of chains that reach the correct answer within this truncation limit. This solve rate acts as a proxy for **problem difficulty** and acts as a useful metric for **data selection** during various training stages.
+To facilitate informed data curation, we utilize the **R1-Distill-14B** model to sample multiple response chains per question. We define the **solve rate** as the fraction of chains that reach the correct answer. This solve rate acts as a proxy for **problem difficulty** and acts as a useful metric for **data selection** during various training stages.
 
 ---
 
@@ -31,9 +31,9 @@ To facilitate informed data curation, we utilize the **R1-Distill-14B** model to
 
 ### 🔹 Stage 1: Reinforcement Learning for Compression
 
-In the first training phase, we aim to instill the model with a preference for **brevity** without compromising **correctness**. Using a filtered subset of questions whose **solve rates** fall between **0.0 and 0.5**, we retain only the correct response chains that complete within the **6,000-token budget**. This subset forms the **RL Compression dataset**.
+In the first training phase, we aim to instill the model with a preference for **brevity** without compromising **correctness**. We recalculate the **solve rates** under a budget constraint of **6,000-tokens**. Questions whose **new solve rates** fall between **0.0 and 0.5** are retained . This subset forms the **RL Compression dataset**.
 
-Starting from the **R1-Distill-14B** checkpoint, we fine-tune the model with a **reinforcement learning objective**: reward shorter chains that have reached the correct answer. This **compression-centric** approach teaches the model to preserve only the most **essential inference steps**, laying the groundwork for **efficient reasoning** in resource-constrained settings.
+Starting from the **R1-Distill-14B** checkpoint, we train the model using **GRPO** algorithm with a **objective**: reward shorter chains that have reached the correct answer. This **compression-centric** approach teaches the model to preserve only the most **essential inference steps**, laying the groundwork for **efficient reasoning** in resource-constrained settings.
 
 
 
