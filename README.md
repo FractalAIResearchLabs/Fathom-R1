@@ -119,6 +119,7 @@ We evaluate and compare **Ramanujan-Ganit‑R1-V1** with several baseline models
 | o1‑mini          | 50.71          | 63.33         | 35.15          | 46.67         |
 | o3‑mini‑low      | 42.6           | 53.33         | 26.61          | 33.33         |
 | o3‑mini‑medium   | 72.24          | 83.33         | 49.21          | 60.00         |
+| o4-mini-low      | 60.2           | 76.67         | 39.11          | 53.33         |
 | o1‑preview       | 33.33          | 36.67         | 17.78          | 20.00         |
 | gpt‑4.5‑preview  | 34.44          | 40.00         | 16.67          | 20.00         |
 
