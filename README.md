@@ -91,13 +91,18 @@ We evaluate **Ganit‑R1** and several baseline models across four benchmarks: *
 **Ganit‑R1** demonstrates competitive performance across all datasets, improving over the original distill checkpoints and closely matching or surpassing other strong baselines in several settings. Its consistency across diverse mathematical domains highlights its balanced reasoning ability.
 
 
-<!-- ## Ablation Studies
+### Response Length Ablation
 
-We performed several ablations to isolate the contributions of each component:
+To assess reasoning efficiency, we compare the **average response lengths** across AIME24, AIME25, and HMMT25. While models like **Light-R1**,  **R1-distill‑14B** and **Model 3** tend to generate longer chains, **Ganit‑V1‑14B** consistently produces **more concise responses** without sacrificing performance. This reflects its two-stage training strategy—compressing reasoning via RL and then selectively decompressing only essential steps through SFT.
 
-1. **No RL Compression**: Skipping Model 1 reduced pass@1 by X%.  
-2. **No Decompression SFT**: Skipping Model 2 hurt consistency@64 by Y%.  
-3. **No Curriculum Learning**: Skipping the CL schedule in Model 3 led to Z% lower performance on hard questions.
-4. **Merged model vs it's components** -->
 
+#### Average Response Length (Tokens)
+
+| Model            | AIME24 | AIME25 | HMMT25 |
+|------------------|--------|--------|--------|
+| Light-R1         | 10144  | 11330  | 12680  |
+| R1-distill-14B   | 9626   | 10878  | 12263  |
+| Ganit-V1-14B     | 9532   | 10083  | 12100  |
+| Model 2          | 9529   | 10570  | 11950  |
+| Model 3          | 10045  | 11236  | 12717  |
 
