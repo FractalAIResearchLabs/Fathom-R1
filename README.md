@@ -57,11 +57,11 @@ We name this model **Ramanujan-Ganit-R1-V0.4**
 
 ---
 
-### 🔹 Stage 3: Curriculum Learning for Robust Reasoning
+### 🔹 Stage 3: SFT with Curriculum Learning for Robust Reasoning
 
 Finally, we develop a third branch focused on improving the model’s performance on **hard problems**. Using the **93K Open-R1 dataset**, we annotate question difficulty on a scale from **1 to 10** using **OpenAI's o3mini**. We retain questions rated **5 or above**, and further filter them by **solve rates between 0.2 and 0.6**, as estimated from multiple **14B model** responses.
 
-This filtered subset becomes the **Curriculum Learning dataset**. We resume training from the **R1-Distill-14B** checkpoint, applying a **curriculum schedule** that gradually increases problem difficulty across training epochs. This **scaffolding** allows the model to build confidence on **moderately difficult questions** before confronting more **complex math problems**, reducing the risk of **early overfitting** and improving overall **robustness**.
+This filtered subset becomes the **Curriculum Learning dataset**. We perform supervised fine-tuning (SFT) on top of the **R1-Distill-14B**, using a **curriculum schedule** where, within each epoch, the model encounters questions in order of increasing difficulty — starting from easier ones and gradually progressing to harder problems. This **scaffolding** allows the model to build confidence on **moderately difficult questions** before confronting more **complex math problems**, reducing the risk of **early overfitting** and improving overall **robustness**.
 We name this model **Ramanujan-Ganit-R1-V0.6**
 
 
@@ -113,14 +113,15 @@ We evaluate and compare **Ramanujan-Ganit‑R1-V1** with several baseline models
 | R1‑distill‑14B   | 45.5           | 63.33         | 30.00          | 50.00         |
 | R1‑distill‑32B   | 49.64          | 73.33         | 33.02          | 53.33         |
 | R1‑670B          | 61.25          | 83.33         | 42.19          | 56.67         |
+| Ramanujan-Ganit‑R1-V0.4         | 50.94          | 73.33         | 33.7           | 40.00         |
+| Ramanujan-Ganit‑R1-V0.6          | 50.63          | 76.67         | 32.19          | 50.00         |
 | **Ramanujan-Ganit‑R1-V1**🟩 | **51.88**      | **76.67**     | **35.78**      | **56.66**     |
 | o1‑mini          | 50.71          | 63.33         | 35.15          | 46.67         |
 | o3‑mini‑low      | 42.6           | 53.33         | 26.61          | 33.33         |
 | o3‑mini‑medium   | 72.24          | 83.33         | 49.21          | 60.00         |
 | o1‑preview       | 33.33          | 36.67         | 17.78          | 20.00         |
 | gpt‑4.5‑preview  | 34.44          | 40.00         | 16.67          | 20.00         |
-| Ramanujan-Ganit‑R1-V0.4         | 50.94          | 73.33         | 33.7           | 40.00         |
-| Ramanujan-Ganit‑R1-V0.6          | 50.63          | 76.67         | 32.19          | 50.00         |
+
 
 
 **Ramanujan-Ganit‑R1-V1** demonstrates highly competitive performance across all datasets, improving over the original R1-distilled models while closely matching or surpassing other strong baselines in several settings. 
@@ -137,9 +138,10 @@ This indicates that training solely on mathematics-focused datasets potentially 
 | R1‑distill‑14B    | 54.19      | 64.14       |
 | R1‑distill‑32B    | 64.57      | 69.70       |
 | R1‑670B           | 71.88      | 74.24       |
-| **Ramanujan-Ganit‑R1-V1**🟩  | **59.13**  | **66.16**   |
 | Ramanujan-Ganit‑R1-V0.4           | 56.35      | 66.67       |
 | Ramanujan-Ganit‑R1-V0.6           | 58.91      | 63.13       |
+| **Ramanujan-Ganit‑R1-V1**🟩  | **59.13**  | **66.16**   |
+
 ### Ablation Study on Response Length
 To assess reasoning efficiency, we compare the **average response lengths** across  AIME25, and HMMT25. While models like **Light-R1**,  **R1-distill‑14B** and **Model 3** tend to generate longer chains, **Ramanujan-Ganit‑R1-V1** consistently produces **more concise responses** without sacrificing performance. This reflects its two-stage training strategy—compressing reasoning via RL and then selectively decompressing only essential steps through SFT.
 #### Average Response Length (Tokens)
@@ -148,6 +150,7 @@ To assess reasoning efficiency, we compare the **average response lengths** acro
 |------------------|--------|--------|
 | Light-R1         | 11330  | 12680  |
 | R1-distill-14B   | 10878  | 12263  |
-| Ramanujan-Ganit‑R1-V1     | 10083  | 12100  |
 | Ramanujan-Ganit‑R1-V0.4          | 10570  | 11950  |
 | Ramanujan-Ganit‑R1-V0.6         | 11236  | 12717  |
+| Ramanujan-Ganit‑R1-V1     | 10083  | 12100  |
+
