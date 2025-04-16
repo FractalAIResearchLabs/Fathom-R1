@@ -86,7 +86,9 @@ We evaluate **Ganit‑V1** and several baseline models across four benchmarks: *
 | Model 2          | 66.8          | 83.33        | 50.94         | 73.33        | 33.7          | 40.00        |
 | Model 3          | 63.8          | 83.33        | 50.63         | 76.67        | 32.19         | 50.00        |
 
-Notably, we also observe out-of-domain improvement in **GPQA**, indicating that reinforcement learning on mathematics-focused datasets potentially facilitates generalization across diverse domains.
+**Ganit‑V1** demonstrates competitive performance across all datasets, improving over the original distill checkpoints and closely matching or surpassing other strong baselines in several settings. Its consistency across diverse mathematical domains highlights its balanced reasoning ability.
+
+Notably, we also observe out-of-domain improvement in **GPQA**, indicating that training on mathematics-focused datasets potentially facilitates generalization across diverse domains.
 
 #### ✅ GPQA Benchmark Comparison
 
@@ -99,8 +101,6 @@ Notably, we also observe out-of-domain improvement in **GPQA**, indicating that 
 | **Ganit‑V1‑14B**🟩  | **59.13**  | **66.16**   |
 | Model 2           | 56.35      | 66.67       |
 | Model 3           | 58.91      | 63.13       |
-
-**Ganit‑V1** demonstrates competitive performance across all datasets, improving over the original distill checkpoints and closely matching or surpassing other strong baselines in several settings. Its consistency across diverse mathematical domains highlights its balanced reasoning ability.
 
 
 ### Response Length Ablation
