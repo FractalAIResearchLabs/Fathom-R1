@@ -49,20 +49,22 @@ Starting from the **R1-Distill-14B** , we train the model using **GRPO** algorit
 
 ---
 
-### 🔹 Stage 2: Supervised Fine-Tuning 
+### 🔹 Stage 2: Supervised Fine-Tuning
+ 
+Building upon the RL checkpoint from Stage 1, we next train the model to elaborate its reasoning, which is particularly necessary for solving more difficult problems. Hence, the dataset for this stage consists of hard problems - only questions with solve rate between **0.1** and **0.4** are retained. Again, making use of multiple sampled responses from the **R1-distill-14B** model, we identify all **correct response chains**. This time, we do not keep any threshold of token limit but instead select the **shortest correct chain per question** to form the **SFT Shortest Chains dataset**.
 
-Building upon the RL checkpoint from **Stage 1**, we next train the model to elaborate its reasoning, which is particularly necessary for solving more difficult problems. We apply filtering where Questions with solve rate between **0.1** and **0.4** are retained. Again, using multiple sampled responses from the **R1-distill-14B** model, we identify all **correct response chains** and select the **shortest correct chain per question** to form the **SFT Shortest Chains dataset**.
-
-These shortest correct chains serve as ideal demonstrations of **minimal yet sufficient reasoning**. Through **supervised fine-tuning**, the model learns to explain its reasoning in a more **precise and efficient** manner — elaborating only when necessary and avoiding **redundant or tangential steps**. This results in a model capable of **clear and concise mathematical reasoning**.
+These shortest correct chains serve as ideal demonstrations of **minimal yet sufficient reasoning**. Through **supervised fine-tuning**, the model learns to explain its reasoning in a more **precise and efficient** manner — elaborating only when necessary and avoiding **redundant or tangential steps**. This results in a highly efficient model capable of **clear and concise mathematical reasoning**.
 We name this model **Ramanujan-Ganit-R1-14B-V0.4**
-
+ 
 ---
+ 
+### 🔹 Stage 3: SFT with Curriculum Learning
+ 
+Finally, we do a third stage of training focused on improving the model’s performance on **hard problems**.
+Curriculum Learning is a common training strategy for LLMs and is known to enhance their problem-solving abilities by gradually increasing the complexity of problems during training.
+Using the **93K Open-R1 dataset**, we annotate question difficulty on a scale from **1 to 10** using **OpenAI's o3mini**. We retain questions rated **5 or above**, and further filter them by **solve rates between 0.2 and 0.6**, as estimated from multiple **14B model** responses. This filtered subset becomes the **Curriculum Learning dataset**.
 
-### 🔹 Stage 3: SFT with Curriculum Learning 
-
-Finally, we train another model focused on improving the model’s performance on **hard problems**. Using the **93K Open-R1 dataset**, we annotate question difficulty on a scale from **1 to 10** using **OpenAI's o3mini**. We retain questions rated **5 or above**, and further filter them by **solve rates between 0.2 and 0.6**, as estimated from multiple **14B model** responses.This filtered subset becomes the **Curriculum Learning dataset**. 
-
-We perform supervised fine-tuning (SFT) on top of the **R1-Distill-14B**, using a **curriculum schedule** where, within each epoch, the model encounters questions in order of increasing difficulty — starting from easier ones and gradually progressing to harder problems. This **scaffolding** allows the model to build confidence on **moderately difficult questions** before confronting more **complex math problems**, reducing the risk of **early overfitting** and improving overall **robustness**.
+ We perform supervised fine-tuning (SFT) on top of the **R1-Distill-14B**, using a **curriculum schedule** where, within each epoch, the model encounters questions in order of increasing difficulty — starting from easier ones and gradually progressing to harder problems. By starting with simpler examples, the model can learn basic patterns more effectively, which aids in understanding more complex data later on. This **scaffolding** allows the model to build confidence on **moderately difficult questions** before confronting more **complex math problems**, reducing the risk of **early overfitting** and improving overall **robustness**.
 We name this model **Ramanujan-Ganit-R1-14B-V0.6**
 
 
