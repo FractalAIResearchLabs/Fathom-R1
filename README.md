@@ -105,6 +105,7 @@ We evaluate Ramanujan-Ganit‑R1-14B-V1 using the same metrics and sampling conf
 This setup allows us to benchmark Ramanujan-Ganit-R1-14B‑V1’s reasoning performance and stability under realistic memory and inference budgets, while maintaining compatibility with the DeepSeek‑R1 evaluation protocol.
 
 We utilize the evaluation framework provided by the [LIMO](https://github.com/GAIR-NLP/LIMO) repository to run inference and compute metrics.
+For detailed instructions and implementation details, please refer to [`eval/README.md`](./eval/readme.md).
 
 ## Results
 We evaluate and compare **Ramanujan-Ganit‑R1-14B-V1** with several baseline models across 3 challenging benchmarks:  **AIME25**, **HMMT25**, and **GPQA**. For each, we report `pass@1` and `cons@64`, following the same evaluation configuration.
