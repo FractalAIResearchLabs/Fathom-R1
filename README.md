@@ -22,12 +22,10 @@
 Our journey begins by curating a high-quality mathematical corpus from several open-source datasets:
 
 - **Open-R1**
-- **Light-R1**
 - **Numina – Olympiads & AOPS_forum**
-- **II-Thoughts**
-- **OMNI-math**
 
-After rigorous deduplication and decontamination, we consolidated approximately **100,000 unique problems**, forming the foundation for all subsequent training stages.
+
+After rigorous deduplication and decontamination, we consolidated approximately **~100K unique problems**, forming the foundation for all subsequent trainings.
 
 ---
 
@@ -39,7 +37,7 @@ To facilitate informed data curation, we utilize the **R1-Distill-14B** model to
 
 ## 🧠 Training Pipeline
 
-### 🔹 Stage 1: Reinforcement Learning 
+### 🔹  Reinforcement Learning 
 
 In the first training phase, we aim to instill the model with a preference for **brevity** without compromising **correctness**. We recalculate the **solve rates** under a budget constraint of **6,000-tokens**. Questions whose **new solve rates** fall between **0.0 and 0.5** are retained . This subset forms the **RL Compression dataset**.
 
@@ -49,18 +47,18 @@ Starting from the **R1-Distill-14B** , we train the model using **GRPO** algorit
 
 ---
 
-### 🔹 Stage 2: Supervised Fine-Tuning
+### 🔹 Supervised Fine-Tuning
  
-Building upon the RL checkpoint from Stage 1, we next train the model to elaborate its reasoning, which is particularly necessary for solving more difficult problems. Hence, the dataset for this stage consists of hard problems - only questions with solve rate between **0.1** and **0.4** are retained. Again, making use of multiple sampled responses from the **R1-distill-14B** model, we identify all **correct response chains**. This time, we do not keep any threshold of token limit but instead select the **shortest correct chain per question** to form the **SFT Shortest Chains dataset**.
+Building upon the RL checkpoint , we next train the model to elaborate its reasoning, which is particularly necessary for solving more difficult problems. Hence, the dataset for this stage consists of hard problems - only questions with solve rate between **0.1** and **0.4** are retained. Again, making use of multiple sampled responses from the **R1-distill-14B** model, we identify all **correct response chains**. This time, we do not keep any threshold of token limit but instead select the **shortest correct chain per question** to form the **SFT Shortest Chains dataset**.
 
 These shortest correct chains serve as ideal demonstrations of **minimal yet sufficient reasoning**. Through **supervised fine-tuning**, the model learns to explain its reasoning in a more **precise and efficient** manner — elaborating only when necessary and avoiding **redundant or tangential steps**. This results in a highly efficient model capable of **clear and concise mathematical reasoning**.
 We name this model **Ramanujan-Ganit-R1-14B-V0.4**
  
 ---
  
-### 🔹 Stage 3: SFT with Curriculum Learning
+### 🔹 Iterative Curriculum Learning
  
-Finally, we do a third stage of training focused on improving the model’s performance on **hard problems**.
+Finally, we do a separate training focused on improving the model’s performance on **hard problems**.
 Curriculum Learning is a common training strategy for LLMs and is known to enhance their problem-solving abilities by gradually increasing the complexity of problems during training.
 Using the **93K Open-R1 dataset**, we annotate question difficulty on a scale from **1 to 10** using **OpenAI's o3mini**. We retain questions rated **5 or above**, and further filter them by **solve rates between 0.2 and 0.6**, as estimated from multiple **14B model** responses. This filtered subset becomes the **Curriculum Learning dataset**.
 
@@ -70,7 +68,7 @@ We name this model **Ramanujan-Ganit-R1-14B-V0.6**
 
 ---
 
-## 🧩 Final Integration: Ramanujan-Ganit-R1-14B-V1
+## 🧩 Final Step: Model-Merging
 
 The final model, **Ramanujan-Ganit-R1-14B-V1**, is obtained by **merging** the 2 resultant models from the aforementioned training stages:
 
@@ -150,7 +148,7 @@ This indicates that training solely on mathematics-focused datasets potentially 
 | **Ramanujan-Ganit‑R1-14B-V1**🟩  | **59.13**  | **66.16**   |
 
 ### Ablation Study on Response Length
-To assess reasoning efficiency, we compare the **average response lengths** across  AIME25, and HMMT25. While models like **Light-R1-14B**,  **R1-distill‑14B** and **Ramanujan-Ganit‑R1-14B-V0.6** tend to generate longer chains, **Ramanujan-Ganit‑R1-14B-V1** consistently produces **more concise responses** without sacrificing performance. This reflects its two-stage training strategy—compressing reasoning via RL and then selectively decompressing only essential steps through SFT.
+To assess reasoning efficiency, we compare the **average response lengths** across  AIME25, and HMMT25. While models like **Light-R1-14B**,  **R1-distill‑14B** and **Ramanujan-Ganit‑R1-14B-V0.6** tend to generate longer chains, **Ramanujan-Ganit‑R1-14B-V1** consistently produces **more concise responses** without sacrificing performance. 
 #### Average Response Length (Tokens)
 
 | Model            | AIME25 | HMMT25 |
