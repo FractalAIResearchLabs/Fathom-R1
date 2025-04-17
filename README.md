@@ -39,7 +39,7 @@ To facilitate informed data curation, we utilize the **R1-Distill-14B** model to
 
 ## 🧠 Training Pipeline
 
-### 🔹 Stage 1: Reinforcement Learning for Compression
+### 🔹 Stage 1: Reinforcement Learning 
 
 In the first training phase, we aim to instill the model with a preference for **brevity** without compromising **correctness**. We recalculate the **solve rates** under a budget constraint of **6,000-tokens**. Questions whose **new solve rates** fall between **0.0 and 0.5** are retained . This subset forms the **RL Compression dataset**.
 
@@ -49,16 +49,16 @@ Starting from the **R1-Distill-14B** , we train the model using **GRPO** algorit
 
 ---
 
-### 🔹 Stage 2: Supervised Fine-Tuning for Decompression
+### 🔹 Stage 2: Supervised Fine-Tuning 
 
-Building on the compressed model from Stage 1, we next train the model to **decompress and elaborate its reasoning**, which is particularly necessary for solving more difficult problems. We apply filtering where Questions with solve rate between **0.1** and **0.4** are retained. Again, using multiple sampled responses from the **R1-distill-14B** model, we identify all **correct response chains** and select the **shortest correct chain per question** to form the **SFT Shortest Chains dataset**.
+Building upon the RL checkpoint from Stage 1, we next train the model to elaborate its reasoning, which is particularly necessary for solving more difficult problems. We apply filtering where Questions with solve rate between **0.1** and **0.4** are retained. Again, using multiple sampled responses from the **R1-distill-14B** model, we identify all **correct response chains** and select the **shortest correct chain per question** to form the **SFT Shortest Chains dataset**.
 
 These shortest correct chains serve as ideal demonstrations of **minimal yet sufficient reasoning**. Through **supervised fine-tuning**, the model learns to explain its reasoning in a more **precise and efficient** manner — elaborating only when necessary and avoiding **redundant or tangential steps**. This results in a model capable of **clear and concise mathematical reasoning**.
 We name this model **Ramanujan-Ganit-R1-14B-V0.4**
 
 ---
 
-### 🔹 Stage 3: SFT with Curriculum Learning for Robust Reasoning
+### 🔹 Stage 3: SFT with Curriculum Learning 
 
 Finally, we develop a third branch focused on improving the model’s performance on **hard problems**. Using the **93K Open-R1 dataset**, we annotate question difficulty on a scale from **1 to 10** using **OpenAI's o3mini**. We retain questions rated **5 or above**, and further filter them by **solve rates between 0.2 and 0.6**, as estimated from multiple **14B model** responses.
 
