@@ -49,7 +49,7 @@ Starting from the **R1-Distill-14B** , we train the model using **GRPO** algorit
 
 ### 🔹 Supervised Fine-Tuning
  
-Building upon the RL checkpoint , we next train the model to elaborate its reasoning, which is particularly necessary for solving more difficult problems. Hence, the dataset for this stage consists of hard problems - only questions with solve rate between **0.1** and **0.4** are retained. Again, making use of multiple sampled responses from the **R1-distill-14B** model, we identify all **correct response chains**. This time, we do not keep any threshold of token limit but instead select the **shortest correct chain per question** to form the **SFT Shortest Chains dataset**.
+Building upon the RL checkpoint , we next train the model under **16K** context to elaborate its reasoning, which is particularly necessary for solving more difficult problems. Hence, the dataset for this stage consists of hard problems - only questions with solve rate between **0.1** and **0.4** are retained. Again, making use of multiple sampled responses from the **R1-distill-14B** model, we identify all **correct response chains**. This time, we do not keep any threshold of token limit but instead select the **shortest correct chain per question** to form the **SFT Shortest Chains dataset**.
 
 These shortest correct chains serve as ideal demonstrations of **minimal yet sufficient reasoning**. Through **supervised fine-tuning**, the model learns to explain its reasoning in a more **precise and efficient** manner — elaborating only when necessary and avoiding **redundant or tangential steps**. This results in a highly efficient model capable of **clear and concise mathematical reasoning**.
 We name this model **Ramanujan-Ganit-R1-14B-V0.4**
@@ -62,7 +62,7 @@ Finally, we do a separate training focused on improving the model’s performanc
 Curriculum Learning is a common training strategy for LLMs and is known to enhance their problem-solving abilities by gradually increasing the complexity of problems during training.
 Using the **93K Open-R1 dataset**, we annotate question difficulty on a scale from **1 to 10** using **OpenAI's o3mini**. We retain questions rated **5 or above**, and further filter them by **solve rates between 0.2 and 0.6**, as estimated from multiple **14B model** responses. This filtered subset becomes the **Curriculum Learning dataset**.
 
- We perform supervised fine-tuning (SFT) on top of the **R1-Distill-14B**, using a **curriculum schedule** where, within each epoch, the model encounters questions in order of increasing difficulty — starting from easier ones and gradually progressing to harder problems. By starting with simpler examples, the model can learn basic patterns more effectively, which aids in understanding more complex data later on. This **scaffolding** allows the model to build confidence on **moderately difficult questions** before confronting more **complex math problems**, reducing the risk of **early overfitting** and improving overall **robustness**.
+ We perform supervised fine-tuning (SFT) on top of the **R1-Distill-14B** under **16K** context, using a **curriculum schedule** where, within each epoch, the model encounters questions in order of increasing difficulty — starting from easier ones and gradually progressing to harder problems. By starting with simpler examples, the model can learn basic patterns more effectively, which aids in understanding more complex data later on. This **scaffolding** allows the model to build confidence on **moderately difficult questions** before confronting more **complex math problems**, reducing the risk of **early overfitting** and improving overall **robustness**.
 We name this model **Ramanujan-Ganit-R1-14B-V0.6**
 
 
@@ -80,6 +80,18 @@ By combining these capabilities, **Ramanujan-Ganit-R1-14B-V1** maximizes its pot
 
 ---
 
+## 💰 Training Cost
+
+We trained **Ramanujan-Ganit-R1-14B-V1** using a focused, resource-efficient strategy that balances performance with compute budget. Below is the total GPU time utilized across both training stages:
+
+| Training Method            | GPU Hours (H100) | Cost(USD) |
+|----------------------------|------------------|------|
+| Reinforcement Learning     | 139              |  400    |
+| Supervised Fine-Tuning     | 60              |    180  |
+| Iterative Curriculum Learning |    48           |  150   |
+| **Total**                  | **247**          |    730  |
+
+This low training cost highlights the efficiency of our method — enabling high-level mathematical reasoning comparable to **o4-mini** in under **750USD** , all within a **16k context window**.
 
 
 
