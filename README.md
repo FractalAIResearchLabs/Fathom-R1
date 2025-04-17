@@ -110,6 +110,7 @@ We evaluate and compare **Ramanujan-Ganit‑R1-14B-V1** with several baseline mo
 | Model            | AIME25         |               | HMMT25         |               |
 |------------------|----------------|---------------|----------------|---------------|
 |                  | pass@1         | cons@64       | pass@1         | cons@64       |
+| **Open-Source Models**               |                |               |                |               |
 | LightR1‑14B      | 51.15          | 76.67         | 34.11          | 50.00         |
 | R1‑distill‑14B   | 45.5           | 63.33         | 30.00          | 50.00         |
 | R1‑distill‑32B   | 49.64          | 73.33         | 33.02          | 53.33         |
@@ -117,6 +118,7 @@ We evaluate and compare **Ramanujan-Ganit‑R1-14B-V1** with several baseline mo
 | Ramanujan-Ganit‑R1-14B-V0.4         | 50.94          | 73.33         | 33.7           | 40.00         |
 | Ramanujan-Ganit‑R1-14B-V0.6          | 50.63          | 76.67         | 32.19          | 50.00         |
 | **Ramanujan-Ganit‑R1-14B-V1**🟩 | **51.88**      | **76.67**     | **35.78**      | **56.66**     |
+| **Closed-Source Models**               |                |               |                |               |
 | o1‑mini          | 50.71          | 63.33         | 35.15          | 46.67         |
 | o3‑mini‑low      | 42.6           | 53.33         | 26.61          | 33.33         |
 | o3‑mini‑medium   | 72.24          | 83.33         | 49.21          | 60.00         |
