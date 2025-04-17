@@ -111,6 +111,13 @@ We evaluate and compare **Ramanujan-Ganit‑R1-14B-V1** with several baseline mo
 | Model            | AIME25         |               | HMMT25         |               |
 |------------------|----------------|---------------|----------------|---------------|
 |                  | pass@1         | cons@64       | pass@1         | cons@64       |
+| **Closed-Source Models**               |                |               |                |               |
+| o1‑mini          | 50.71          | 63.33         | 35.15          | 46.67         |
+| o3‑mini‑low      | 42.6           | 53.33         | 26.61          | 33.33         |
+| o3‑mini‑medium   | 72.24          | 83.33         | 49.21          | 60.00         |
+| o4-mini-low      | 60.2           | 76.67         | 39.11          | 53.33         |
+| o1‑preview       | 33.33          | 36.67         | 17.78          | 20.00         |
+| gpt‑4.5‑preview  | 34.44          | 40.00         | 16.67          | 20.00         |
 | **Open-Source Models**               |                |               |                |               |
 | LightR1‑14B      | 51.15          | 76.67         | 34.11          | 50.00         |
 | R1‑distill‑14B   | 45.5           | 63.33         | 30.00          | 50.00         |
@@ -119,19 +126,14 @@ We evaluate and compare **Ramanujan-Ganit‑R1-14B-V1** with several baseline mo
 | Ramanujan-Ganit‑R1-14B-V0.4         | 50.94          | 73.33         | 33.7           | 40.00         |
 | Ramanujan-Ganit‑R1-14B-V0.6          | 50.63          | 76.67         | 32.19          | 50.00         |
 | **Ramanujan-Ganit‑R1-14B-V1**🟩 | **51.88**      | **76.67**     | **35.78**      | **56.66**     |
-| **Closed-Source Models**               |                |               |                |               |
-| o1‑mini          | 50.71          | 63.33         | 35.15          | 46.67         |
-| o3‑mini‑low      | 42.6           | 53.33         | 26.61          | 33.33         |
-| o3‑mini‑medium   | 72.24          | 83.33         | 49.21          | 60.00         |
-| o4-mini-low      | 60.2           | 76.67         | 39.11          | 53.33         |
-| o1‑preview       | 33.33          | 36.67         | 17.78          | 20.00         |
-| gpt‑4.5‑preview  | 34.44          | 40.00         | 16.67          | 20.00         |
+
 
 
 
 **Ramanujan-Ganit‑R1-14B-V1** demonstrates highly competitive performance across all datasets, improving over the original R1-distilled models while closely matching or surpassing other strong baselines in several settings. 
 On both AIME 25 and HMMT 25, our model shows the highest pass@1 as well as cons@64 scores among all the open-source models (including the bigger R1-Distilled-32B model), with R1-670B being the only exception.
-In fact, we observe that Ramanujan-Ganit-R1-14B-V1 is superior to even some of the OpenAI reasoning models, including o1-mini and o3-mini (low).
+
+In fact, we observe that Ramanujan-Ganit-R1-14B-V1 is superior to even some of the OpenAI reasoning models, including **o1-mini** and **o3-mini (low)** and it's performance closely matches that of newly released **o4-mini (low)**.
 Its consistency across diverse mathematical domains highlights its balanced reasoning ability.
 
 Notably, we also observe out-of-domain improvement in **GPQA**, even though there wasn't a single instance of science reasoning based questions in our training data. 
