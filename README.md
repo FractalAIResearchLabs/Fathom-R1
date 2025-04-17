@@ -1,4 +1,4 @@
-# Ramanujan-Ganit‑R1-14B-V1
+# Ramanujan-Ganit‑R1-14B-V1: Unlocking Math Reasoning at O4-mini level with 14B model under 16K context
 
 
 <div align="center">
