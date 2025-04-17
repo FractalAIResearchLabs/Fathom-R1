@@ -125,7 +125,7 @@ We evaluate and compare **Ramanujan-Ganit‑R1-14B-V1** with several baseline mo
 | R1‑670B          | 61.25          | 83.33         | 42.19          | 56.67         |
 | Ramanujan-Ganit‑R1-14B-V0.4         | 50.94          | 73.33         | 33.7           | 40.00         |
 | Ramanujan-Ganit‑R1-14B-V0.6          | 50.63          | 76.67         | 32.19          | 50.00         |
-| **Ramanujan-Ganit‑R1-14B-V1**🟩 | **51.88**      | **76.67**     | **35.78**      | **56.66**     |
+| **Ramanujan-Ganit‑R1-14B-V1** | **51.88**      | **76.67**     | **35.78**      | **56.66**     |
 
 
 
@@ -147,7 +147,7 @@ This indicates that training solely on mathematics-focused datasets potentially 
 | R1‑670B           | 71.88      | 74.24       |
 | Ramanujan-Ganit‑R1-14B-V0.4           | 56.35      | 66.67       |
 | Ramanujan-Ganit‑R1-14B-V0.6           | 58.91      | 63.13       |
-| **Ramanujan-Ganit‑R1-14B-V1**🟩  | **59.13**  | **66.16**   |
+| **Ramanujan-Ganit‑R1-14B-V1**  | 59.13 | 66.16  |
 
 ### Ablation Study on Response Length
 To assess reasoning efficiency, we compare the **average response lengths** across  AIME25, and HMMT25. While models like **Light-R1-14B**,  **R1-distill‑14B** and **Ramanujan-Ganit‑R1-14B-V0.6** tend to generate longer chains, **Ramanujan-Ganit‑R1-14B-V1** consistently produces **more concise responses** without sacrificing performance. 
@@ -159,5 +159,5 @@ To assess reasoning efficiency, we compare the **average response lengths** acro
 | R1-distill-14B   | 10878  | 12263  |
 | Ramanujan-Ganit‑R1-14B-V0.4          | 10570  | 11950  |
 | Ramanujan-Ganit‑R1-14B-V0.6         | 11236  | 12717  |
-| **Ramanujan-Ganit‑R1-14B-V1**🟩      | 10083  | 12100  |
+| **Ramanujan-Ganit‑R1-14B-V1**      | 10083  | 12100  |
 
