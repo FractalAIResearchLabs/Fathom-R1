@@ -144,7 +144,7 @@ This indicates that training solely on mathematics-focused datasets potentially 
 | **Ramanujan-Ganit‑R1-V1**🟩  | **59.13**  | **66.16**   |
 
 ### Ablation Study on Response Length
-To assess reasoning efficiency, we compare the **average response lengths** across  AIME25, and HMMT25. While models like **Light-R1**,  **R1-distill‑14B** and **Model 3** tend to generate longer chains, **Ramanujan-Ganit‑R1-V1** consistently produces **more concise responses** without sacrificing performance. This reflects its two-stage training strategy—compressing reasoning via RL and then selectively decompressing only essential steps through SFT.
+To assess reasoning efficiency, we compare the **average response lengths** across  AIME25, and HMMT25. While models like **Light-R1**,  **R1-distill‑14B** and **Ramanujan-Ganit‑R1-V0.6** tend to generate longer chains, **Ramanujan-Ganit‑R1-V1** consistently produces **more concise responses** without sacrificing performance. This reflects its two-stage training strategy—compressing reasoning via RL and then selectively decompressing only essential steps through SFT.
 #### Average Response Length (Tokens)
 
 | Model            | AIME25 | HMMT25 |
