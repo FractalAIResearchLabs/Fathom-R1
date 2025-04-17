@@ -1,4 +1,4 @@
-# Ramanujan-Ganit‑R1-V1
+# Ramanujan-Ganit‑R1-14B-V1
 
 
 <div align="center">
