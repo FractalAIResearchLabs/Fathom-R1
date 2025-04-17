@@ -70,9 +70,9 @@ We name this model **Ramanujan-Ganit-R1-14B-V0.6**
 
 ## 🧩 Final Integration: Ramanujan-Ganit-R1-14B-V1
 
-The final model, **Ramanujan-Ganit-R1-14B-V1**, merges the strengths of 2 resultant models from the aforementioned training stages:
+The final model, **Ramanujan-Ganit-R1-14B-V1**, is obtained by **merging** the 2 resultant models from the aforementioned training stages:
 
-- **Ramanujan-Ganit-R1-14B-V0.4 (SFT Decompression)** contributes the ability to generate efficient, well-articulated reasoning chains that are as brief as they are correct.
+- **Ramanujan-Ganit-R1-14B-V0.4 (RL + SFT)** contributes the ability to generate efficient, well-articulated reasoning chains that are as brief as they are correct.
 - **Ramanujan-Ganit-R1-14B-V0.6 (Curriculum SFT)** enhances resilience on difficult problems and promotes stepwise learning across complexity levels.
 
 By combining these capabilities, **Ramanujan-Ganit-R1-14B-V1** maximizes its potential of solving highly complicated math problems accurately, while simultaneously offering a **concise explanation** for the same.
