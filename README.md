@@ -40,7 +40,7 @@ To facilitate informed data curation, we utilize the **R1-Distill-14B** model to
 
 ### 🔹 Stage 1: Reinforcement Learning for Compression
 
-In the first training phase, we aim to instill the model with a preference for **brevity** without compromising **correctness**. We recalculate the **solve rates** under a budget constraint of **6,000-tokens**. Questions with **new solve rates** fall between **0.0 and 0.5** are retained . This subset forms the **RL Compression dataset**.
+In the first training phase, we aim to instill the model with a preference for **brevity** without compromising **correctness**. We recalculate the **solve rates** under a budget constraint of **6,000-tokens**. Questions whose **new solve rates** fall between **0.0 and 0.5** are retained . This subset forms the **RL Compression dataset**.
 
 Starting from the **R1-Distill-14B** , we train the model using **GRPO** algorithm with a **objective**: reward shorter chains that have reached the correct answer. This **compression-centric** approach teaches the model to preserve only the most **essential inference steps**, laying the groundwork for **efficient reasoning** in resource-constrained settings.
 
@@ -50,7 +50,7 @@ Starting from the **R1-Distill-14B** , we train the model using **GRPO** algorit
 
 ### 🔹 Stage 2: Supervised Fine-Tuning for Decompression
 
-Building on the compressed model from Stage 1, we next train the model to **decompress and elaborate its reasoning**, which is particularly necessary for solving more difficult problems. Again, using multiple sampled responses from the **R1-distill-14B** model, we identify all **correct response chains** and select the **shortest correct chain per question** to form the **SFT Shortest Chains dataset**.
+Building on the compressed model from Stage 1, we next train the model to **decompress and elaborate its reasoning**, which is particularly necessary for solving more difficult problems. We apply filtering where Questions with solve rate between **0.1** and **0.4** are retained. Again, using multiple sampled responses from the **R1-distill-14B** model, we identify all **correct response chains** and select the **shortest correct chain per question** to form the **SFT Shortest Chains dataset**.
 
 These shortest correct chains serve as ideal demonstrations of **minimal yet sufficient reasoning**. Through **supervised fine-tuning**, the model learns to explain its reasoning in a more **precise and efficient** manner — elaborating only when necessary and avoiding **redundant or tangential steps**. This results in a model capable of **clear and concise mathematical reasoning**.
 We name this model **Ramanujan-Ganit-R1-14B-V0.4**
