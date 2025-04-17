@@ -3,7 +3,8 @@
 
 <div align="center">
 
-[![Hugging Face ‑ Ramanujan-Ganit‑R1-14B-V1](https://img.shields.io/badge/HuggingFace‑Ramanujan--Ganit--R1--14B--V1-FFD21E?logo=HuggingFace&style=for-the-badge)](https://huggingface.co/FractalAIResearch/Ramanujan-Ganit-R1-14B-V1)
+[![Hugging Face - Ramanujan-Ganit-R1-14B-V1](https://img.shields.io/badge/HuggingFace-Ramanujan--Ganit--R1--14B--V1-FFD21E?logo=huggingface&style=for-the-badge)](https://huggingface.co/FractalAIResearch/Ramanujan-Ganit-R1-14B-V1)
+
 
 </div>
 
