@@ -70,9 +70,9 @@ We trained **Ramanujan-Ganit-R1-14B-V1** using a focused, resource-efficient str
 |----------------------------|------------------|------|
 | Ramanujan-Ganit-R1-14B-V0.4     | 247         |    700  |
 | Ramanujan-Ganit-R1-14B-V0.6     | 29          |    83  |
-| **Ramanujan-Ganit-R1-14B-V1**   | **276**     |    783  |
+| **Total**   | **276**     |    783  |
 
-This low training cost highlights the efficiency of our method — enabling high-level mathematical reasoning comparable to **o4-mini** in under **800USD** , all within a **16k context window**.
+So, the final Ramanujan-Ganit-R1-14B-V1 took just 783$ to be trained overall! This low training cost highlights the efficiency of our method — enabling high-level mathematical reasoning comparable to **o4-mini** in under **800USD** , all within a **16k context window**.
 
 ## 📊 Evaluation
 We evaluate Ramanujan-Ganit‑R1-14B-V1 using the same metrics and sampling configuration introduced in the DeepSeek‑R1 paper, namely **pass@1** and **cons@64**. However, our evaluation is conducted under a reduced context window of 16,384 tokens, compared to DeepSeek‑R1’s 32,768 tokens, to better reflect practical deployment constraints.
