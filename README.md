@@ -1,5 +1,4 @@
-# Ramanujan-Ganit‑R1: Unlocking Math Reasoning at O4-mini level with 14B model under 16K context
-
+# Recipe for Unlocking Math Reasoning at o4-mini level with 14B model under 16K context
 
 <div align="center">
 
@@ -11,65 +10,40 @@
 <p align="center"> <img src="./images/image.png" style="width: 100%;" id="title-icon">       </p>
 
 
-## Overview
-
+## Release Summary
 **Ramanujan-Ganit-R1-14B-V1** is a 14-billion parameter language model fine-tuned for **mathematical reasoning** using a multi-stage pipeline that emphasizes **accuracy**, **conciseness**, and **robustness** across varying levels of problem difficulty.
 
 ---
 
-## 🧮 Data Collection and Preprocessing
-
+## Training Dataset
 Our journey begins by curating a high-quality mathematical corpus from several open-source datasets:
 
 - **Open-R1**
 - **Numina – Olympiads & AOPS_forum**
-
-
-After rigorous deduplication and decontamination, we consolidated approximately **~100K unique problems**, forming the foundation for all subsequent trainings.
-
+- After rigorous deduplication and decontamination, we consolidated approximately **~100K unique problems**, forming the foundation for all subsequent trainings.
 ---
 
-## 📊 Estimating Problem Difficulty and Response Quality
-
-To facilitate informed data curation, we utilize the **R1-Distill-14B** model to sample multiple response chains per question. We define the **solve rate** as the fraction of chains that reach the correct answer. This solve rate acts as a proxy for **problem difficulty** and acts as a useful metric for **data selection** during various training stages.
-
----
-
-## 🧠 Training Pipeline
-
-### 🔹  Reinforcement Learning 
-
+## Training Recipe for Ramanujan-Ganit-R1-14B-v0.4
 In the first training phase, we aim to instill the model with a preference for **brevity** without compromising **correctness**. We recalculate the **solve rates** under a budget constraint of **6,000-tokens**. Questions whose **new solve rates** fall between **0.0 and 0.5** are retained . This subset forms the **RL Compression dataset**.
 
 Starting from the **R1-Distill-14B** , we train the model using **GRPO** algorithm with a **objective**: reward shorter chains that have reached the correct answer. This **compression-centric** approach teaches the model to preserve only the most **essential inference steps**, laying the groundwork for **efficient reasoning** in resource-constrained settings.
 
-
-
----
-
-### 🔹 Supervised Fine-Tuning
- 
 Building upon the RL checkpoint , we next train the model under **16K** context to elaborate its reasoning, which is particularly necessary for solving more difficult problems. Hence, the dataset for this stage consists of hard problems - only questions with solve rate between **0.1** and **0.4** are retained. Again, making use of multiple sampled responses from the **R1-distill-14B** model, we identify all **correct response chains**. This time, we do not keep any threshold of token limit but instead select the **shortest correct chain per question** to form the **SFT Shortest Chains dataset**.
 
 These shortest correct chains serve as ideal demonstrations of **minimal yet sufficient reasoning**. Through **supervised fine-tuning**, the model learns to explain its reasoning in a more **precise and efficient** manner — elaborating only when necessary and avoiding **redundant or tangential steps**. This results in a highly efficient model capable of **clear and concise mathematical reasoning**.
 We name this model **Ramanujan-Ganit-R1-14B-V0.4**
- 
----
- 
-### 🔹 Iterative Curriculum Learning
- 
-Finally, we do a separate training focused on improving the model’s performance on **hard problems**.
+
+### Intuition
+
+## Training Recipe for Ramanujan-Ganit-R1-14B-v0.6
+We do a separate training focused on improving the model’s performance on **hard problems**.
 Curriculum Learning is a common training strategy for LLMs and is known to enhance their problem-solving abilities by gradually increasing the complexity of problems during training.
 Using the **93K Open-R1 dataset**, we annotate question difficulty on a scale from **1 to 10** using **OpenAI's o3mini**. We retain questions rated **5 or above**, and further filter them by **solve rates between 0.2 and 0.6**, as estimated from multiple **14B model** responses. This filtered subset becomes the **Curriculum Learning dataset**.
 
  We perform supervised fine-tuning (SFT) on top of the **R1-Distill-14B** under **16K** context, using a **curriculum schedule** where, within each epoch, the model encounters questions in order of increasing difficulty — starting from easier ones and gradually progressing to harder problems. By starting with simpler examples, the model can learn basic patterns more effectively, which aids in understanding more complex data later on. This **scaffolding** allows the model to build confidence on **moderately difficult questions** before confronting more **complex math problems**, reducing the risk of **early overfitting** and improving overall **robustness**.
 We name this model **Ramanujan-Ganit-R1-14B-V0.6**
 
-
----
-
-## 🧩 Final Step: Model-Merging
-
+## Model Merging
 The final model, **Ramanujan-Ganit-R1-14B-V1**, is obtained by **merging** the 2 resultant models from the aforementioned training stages:
 
 - **Ramanujan-Ganit-R1-14B-V0.4 (RL + SFT)** contributes the ability to generate efficient, well-articulated reasoning chains that are as brief as they are correct.
@@ -77,10 +51,7 @@ The final model, **Ramanujan-Ganit-R1-14B-V1**, is obtained by **merging** the 2
 
 By combining these capabilities, **Ramanujan-Ganit-R1-14B-V1** maximizes its potential of solving highly complicated math problems accurately, while simultaneously offering a **concise explanation** for the same.
 
-
----
-
-## 💰 Training Cost
+## Training Cost
 
 We trained **Ramanujan-Ganit-R1-14B-V1** using a focused, resource-efficient strategy that balances performance with compute budget. Below is the total GPU time utilized across both training stages:
 
@@ -94,12 +65,7 @@ We trained **Ramanujan-Ganit-R1-14B-V1** using a focused, resource-efficient str
 This low training cost highlights the efficiency of our method — enabling high-level mathematical reasoning comparable to **o4-mini** in under **750USD** , all within a **16k context window**.
 
 
-
-
-
-
 ## Evaluation
-
 We evaluate Ramanujan-Ganit‑R1-14B-V1 using the same metrics and sampling configuration introduced in the DeepSeek‑R1 paper, namely **pass@1** and **cons@64**. However, our evaluation is conducted under a reduced context window of 16,384 tokens, compared to DeepSeek‑R1’s 32,768 tokens, to better reflect practical deployment constraints.
 
 - **pass@1**: Measures the fraction of problems correctly solved in the first generated sample.
@@ -116,6 +82,7 @@ This setup allows us to benchmark Ramanujan-Ganit-R1-14B‑V1’s reasoning perf
 
 We utilize the evaluation framework provided by the [LIMO](https://github.com/GAIR-NLP/LIMO) repository to run inference and compute metrics.
 For detailed instructions and implementation details, please refer to [`eval/README.md`](./eval/readme.md).
+
 
 ## Results
 We evaluate and compare **Ramanujan-Ganit‑R1-14B-V1** with several baseline models across 3 challenging benchmarks:  **AIME25**, **HMMT25**, and **GPQA**. For each, we report `pass@1` and `cons@64`, following the same evaluation configuration.
@@ -139,15 +106,13 @@ We evaluate and compare **Ramanujan-Ganit‑R1-14B-V1** with several baseline mo
 | Ramanujan-Ganit‑R1-14B-V0.6          | 50.63          | 76.67         | 32.19          | 50.00         |
 | **Ramanujan-Ganit‑R1-14B-V1** | **51.88**      | **76.67**     | **35.78**      | **56.66**     |
 
-
-
-
 **Ramanujan-Ganit‑R1-14B-V1** demonstrates highly competitive performance across all datasets, improving over the original R1-distilled models while closely matching or surpassing other strong baselines in several settings. 
 On both AIME 25 and HMMT 25, our model shows the highest pass@1 as well as cons@64 scores among all the open-source models (including the bigger R1-Distilled-32B model), with R1-670B being the only exception.
 
 In fact, we observe that Ramanujan-Ganit-R1-14B-V1 is superior to even some of the OpenAI reasoning models, including **o1-mini** and **o3-mini (low)** and it's performance closely matches that of newly released **o4-mini (low)**.
 Its consistency across diverse mathematical domains highlights its balanced reasoning ability.
 
+## Improvement in Out-Of-Domain Test Set (GPQA-Diamond)
 Notably, we also observe out-of-domain improvement in **GPQA**, even though there wasn't a single instance of science reasoning based questions in our training data. 
 This indicates that training solely on mathematics-focused datasets potentially facilitates generalization across diverse domains, a finding similar to what Light-R1 had observed.
 #### ✅ GPQA Benchmark Comparison
@@ -161,7 +126,8 @@ This indicates that training solely on mathematics-focused datasets potentially 
 | Ramanujan-Ganit‑R1-14B-V0.6           | 58.91      | 63.13       |
 | **Ramanujan-Ganit‑R1-14B-V1**  | 59.13 | 66.16  |
 
-### Ablation Study on Response Length
+
+## Ablation Study on Token Efficiency
 To assess reasoning efficiency, we compare the **average response lengths** across  AIME25, and HMMT25. While models like **Light-R1-14B**,  **R1-distill‑14B** and **Ramanujan-Ganit‑R1-14B-V0.6** tend to generate longer chains, **Ramanujan-Ganit‑R1-14B-V1** consistently produces **more concise responses** without sacrificing performance. 
 #### Average Response Length (Tokens)
 
@@ -173,3 +139,7 @@ To assess reasoning efficiency, we compare the **average response lengths** acro
 | Ramanujan-Ganit‑R1-14B-V0.6         | 11236  | 12717  |
 | **Ramanujan-Ganit‑R1-14B-V1**      | 10083  | 12100  |
 
+
+## License
+
+## Citation
