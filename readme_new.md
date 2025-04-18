@@ -7,6 +7,7 @@
 
 </div>
 
+<p align="center"> <img src="./images/image.png" style="width: 100%;" id="title-icon">       </p>
 ---
 
 ## 🧠 Overview
