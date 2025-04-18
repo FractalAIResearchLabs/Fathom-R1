@@ -26,7 +26,9 @@ Recent advances like DeepSeek-Math and Light-R1 show the potential of large-scal
 - Redundant or verbose reasoning
 
 We address these constraints by focusing on **response efficiency** — training the model to generate only the **minimal reasoning needed** to reach a correct solution, while scaling curriculum difficulty gradually. 
-Here, we unveil the recipe of combining SFT and RL to improve the mathematical reasoning capabilities of a 14B model. 
+Here, we unveil the recipe of combining SFT and RL to improve the mathematical reasoning capabilities of a 14B model.
+
+
 ---
 
 ## 🏗️ Training Pipeline
