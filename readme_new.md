@@ -12,7 +12,7 @@
 ## 🧠 Overview
 
 We introduce **Ramanujan-Ganit-R1-14B-V1** - a compact and compute-efficient 14B language model optimized for **concise and accurate mathematical reasoning**.  
-Trained via a multi-stage pipeline combining **reinforcement learning**, **supervised fine-tuning**, and **curriculum learning**, it delivers **performance rivaling closed-source o4-mini (low)** — all while staying within a **16K context window** and a modest compute budget.
+Trained via an extensive pipeline combining **reinforcement learning**, **supervised fine-tuning**, and **curriculum learning**, it delivers **performance rivaling closed-source o4-mini (low)** — all while staying within a **16K context window** and a modest compute budget. It achieves an impressive 51.9% Pass@1 accuracy on AIME2025 and 35.8% Pass@1 accuracy on HMMT25(+5.8% and +6.3% improvement over the base model respectively). We have open-sourced our models which we believe will help the community to progress further in this domain. 
 
 ---
 
@@ -24,8 +24,8 @@ Recent advances like DeepSeek-Math and Light-R1 show the potential of large-scal
 - Expensive context lengths (32K+)
 - Redundant or verbose reasoning
 
-We address these constraints by focusing on **response efficiency** — training the model to generate only the **minimal reasoning needed** to reach a correct solution, while scaling curriculum difficulty gradually.
-
+We address these constraints by focusing on **response efficiency** — training the model to generate only the **minimal reasoning needed** to reach a correct solution, while scaling curriculum difficulty gradually. 
+Here, we unveil the recipe of combining SFT and RL to improve the mathematical reasoning capabilities of a 14B model. 
 ---
 
 ## 🏗️ Training Pipeline
