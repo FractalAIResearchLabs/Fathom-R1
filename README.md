@@ -24,24 +24,40 @@ Our journey begins by curating a high-quality mathematical corpus from several o
 ---
 
 ## Training Recipe for Ramanujan-Ganit-R1-14B-v0.4
-In the first training phase, we aim to instill the model with a preference for **brevity** without compromising **correctness**. We recalculate the **solve rates** under a budget constraint of **6,000-tokens**. Questions whose **new solve rates** fall between **0.0 and 0.5** are retained . This subset forms the **RL Compression dataset**.
-
-Starting from the **R1-Distill-14B** , we train the model using **GRPO** algorithm with a **objective**: reward shorter chains that have reached the correct answer. This **compression-centric** approach teaches the model to preserve only the most **essential inference steps**, laying the groundwork for **efficient reasoning** in resource-constrained settings.
-
-Building upon the RL checkpoint , we next train the model under **16K** context to elaborate its reasoning, which is particularly necessary for solving more difficult problems. Hence, the dataset for this stage consists of hard problems - only questions with solve rate between **0.1** and **0.4** are retained. Again, making use of multiple sampled responses from the **R1-distill-14B** model, we identify all **correct response chains**. This time, we do not keep any threshold of token limit but instead select the **shortest correct chain per question** to form the **SFT Shortest Chains dataset**.
-
-These shortest correct chains serve as ideal demonstrations of **minimal yet sufficient reasoning**. Through **supervised fine-tuning**, the model learns to explain its reasoning in a more **precise and efficient** manner — elaborating only when necessary and avoiding **redundant or tangential steps**. This results in a highly efficient model capable of **clear and concise mathematical reasoning**.
-We name this model **Ramanujan-Ganit-R1-14B-V0.4**
 
 ### Intuition
 
-## Training Recipe for Ramanujan-Ganit-R1-14B-v0.6
-We do a separate training focused on improving the model’s performance on **hard problems**.
-Curriculum Learning is a common training strategy for LLMs and is known to enhance their problem-solving abilities by gradually increasing the complexity of problems during training.
-Using the **93K Open-R1 dataset**, we annotate question difficulty on a scale from **1 to 10** using **OpenAI's o3mini**. We retain questions rated **5 or above**, and further filter them by **solve rates between 0.2 and 0.6**, as estimated from multiple **14B model** responses. This filtered subset becomes the **Curriculum Learning dataset**.
+In the first training phase, we aim to instill the model with a preference for brevity without compromising correctness. The goal is to train the model to preserve only the most essential parts of the response chain, laying the groundwork for efficient reasoning in resource-constrained settings.
 
- We perform supervised fine-tuning (SFT) on top of the **R1-Distill-14B** under **16K** context, using a **curriculum schedule** where, within each epoch, the model encounters questions in order of increasing difficulty — starting from easier ones and gradually progressing to harder problems. By starting with simpler examples, the model can learn basic patterns more effectively, which aids in understanding more complex data later on. This **scaffolding** allows the model to build confidence on **moderately difficult questions** before confronting more **complex math problems**, reducing the risk of **early overfitting** and improving overall **robustness**.
-We name this model **Ramanujan-Ganit-R1-14B-V0.6**
+We further refine this capability by encouraging the model to elaborate its reasoning only as much as necessary — especially for solving more difficult problems. The central intuition is that a model trained on minimal yet complete reasoning chains can learn to be both precise and efficient in its explanations.
+
+### Method
+
+We begin by calculating solve rates for each question under a strict 6,000-token constraint by sampling multiple responses from R1-Distill-14B model. Questions whose solve rates fall between 0.0 and 0.5 are retained to form the **RL Compression dataset**. Starting from the R1-Distill-14B checkpoint, we train the model using the **GRPO algorithm**, with a modified objective function to reward shorter chains that reach the correct answer.
+
+Once this reinforcement learning (RL) phase is complete, we build upon the RL checkpoint and continue supervised fine-tuning under a **16K context window** to encourage more detailed reasoning that would be required for solving more complex problems. For this stage, we curate a dataset consisting of hard problems — specifically, questions with solve rates between 0.1 and 0.4.
+
+Sampling multiple responses from the R1-Distill-14B model, we identify all correct response chains. This time, instead of imposing any token limit, for each question, we select the **shortest correct chain**, forming the **SFT Shortest Chains dataset**.
+
+Through supervised fine-tuning on this dataset, the model learns to explain its reasoning in a more precise and efficient manner — elaborating only when necessary and avoiding redundant or tangential steps. The resulting model is named **Ramanujan-Ganit-R1-14B-v0.4**, optimized for concise yet accurate mathematical reasoning.
+
+
+## Training Recipe for Ramanujan-Ganit-R1-14B-v0.6
+
+### Intuition
+
+This training stage focuses on improving the model’s performance on **hard mathematical problems** through a curriculum learning strategy. Curriculum learning is a well-established technique for large language models, where the model is progressively exposed to more difficult tasks. The idea is to build foundational understanding first and gradually scaffold more complex reasoning, thereby enhancing generalization and reducing overfitting.
+
+By first training on moderately difficult examples, the model internalizes essential reasoning patterns, enabling it to tackle harder problems with greater confidence and robustness.
+
+### Method
+
+We begin by annotating each question’s difficulty on a scale from **1 to 10** using **OpenAI's o3mini** model. We retain only those questions rated **5 or above**, and further filter them to include only those with **solve rates between 0.2 and 0.6**, as computed from multiple samples generated by the R1-Distill-14B model. This yields the **Curriculum Learning dataset**.
+
+The **R1-Distill-14B** checkpoint is chosen as the base model for **supervised fine-tuning (SFT)** under a **16K context window**. A **curriculum schedule** is employed across each training epoch, such that questions are presented in order of increasing difficulty. This structured progression — from easier to harder examples — allows the model to incrementally develop and enhance its problem-solving skills.
+
+The resulting model is **Ramanujan-Ganit-R1-14B-v0.6**, a model that demonstrates improved reasoning performance on challenging mathematical problems.
+
 
 ## Model Merging
 The final model, **Ramanujan-Ganit-R1-14B-V1**, is obtained by **merging** the 2 resultant models from the aforementioned training stages:
