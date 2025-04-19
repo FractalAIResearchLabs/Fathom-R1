@@ -10,7 +10,7 @@
 <p align="center"> <img src="./images/image.png" style="width: 100%;" id="title-icon">       </p>
 ---
 
-## 🧠 Overview
+## Overview
 
 We introduce **Ramanujan-Ganit-R1-14B-V1** - a compute-efficient 14B SOTA reasoning language model; finetuned from Deepseek-R1-Distilled-Qwen-14B and optimized for **mathematical reasoning**. By leveraging post-training techniques: **reinforcement learning** and **supervised fine-tuning**, in a multi-stage and cost-effective manner, we create two intermediate checkpoints with improved reasoning and certain distinct performance characteristics: **Ramanujan-Ganit-R1-14B-V0.4** and **Ramanujan-Ganit-R1-14B-V0.6**. We perform **model merging** over these two checkpoints and arrive at the final checkpoint,**Ramanujan-Ganit-R1-14B-V1**. We achieve our final checkpoint with an effective training budget of less than 799 dollars! On the latest olympiad level exams: AIME-25 and HMMT-25, our model not only **surpasses o3-mini-low, o1-mini and LightR1-14B(16k)** at pass@1 scores (averaged over 64 runs) but also delivers **performance rivaling closed-source o4-mini (low)** w.r.t cons@64 — all while staying within a **16K context window**. It achieves 51.9% Pass@1 accuracy on AIME2025 and 35.8% Pass@1 accuracy on HMMT25(+5.8% and +6.3% improvement over the base model respectively). When provided with additional test-time compute in the form of cons@64, it achieves an impressive 76.7% accuracy on AIME2025 and 56.7% accuracy on HMMT25(+13.4% and +6.7% improvement over the base model respectively). We are open-sourcing our models and training details which we believe will help the community to progress further in the reasoning domain. 
 
@@ -142,10 +142,21 @@ To assess reasoning efficiency, we compare the **average response lengths** acro
 | Ramanujan-Ganit‑R1-14B-V0.6         | 11236  | 12717  |
 | **Ramanujan-Ganit‑R1-14B-V1**      | 10083  | 12100  |
 
+## Data Decontimination
+Both the benchmarks used (AIME 25 AND HMMT 25) were released after few weeks of the release of the base model. This ensures no contaimination happened during the pre-training of the base model. The dataset corpuses (Numina-Math 1.5 & OpenR1-Math) were released around similar time as that the release time of these exams and has a cutoff<=2024). Moreover,We we anyway conduct a check to ensure training data  We ensure during post-training, the data used 
 
 ## 📜 License
 
-🟡 Released under **Apache 2.0** — free for commercial and research use.
+Our project is available under the MIT License, underscoring our dedication to open and inclusive AI innovation. By freely sharing our work, we aim to democratize AI technology, empowering researchers, developers, and enthusiasts everywhere to use, adapt, and expand upon it without limitation. This open and permissive approach promotes global collaboration, accelerates innovation, and enriches the AI community as a whole.
+
+## Acknowledgments
+We would like to acknowledge the following works for enabling our project:
+DeepseekR1 distill qwen 14b
+NuminaMath 1.5
+OpenR1math
+360LLAMA factory
+verl
+Limo
 
 ---
 
