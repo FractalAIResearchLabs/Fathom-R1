@@ -131,7 +131,7 @@ This indicates that training solely on mathematics-focused datasets potentially 
 
 
 ## ✂️ Ablation Study on Token Efficiency
-To assess reasoning efficiency, we compare the **average response lengths** across  AIME25, and HMMT25. While models like **Light-R1-14B**,  **R1-distill‑14B** and **Ramanujan-Ganit‑R1-14B-V0.6** tend to generate longer chains, **Ramanujan-Ganit‑R1-14B-V1** consistently produces **more concise responses** without sacrificing performance. 
+To assess reasoning token efficiency, we compare the **average token count per question**, under 16k context length, across  AIME25, and HMMT25. WWhile models like **Light-R1-14B**,  **R1-distill‑14B** and **Ramanujan-Ganit‑R1-14B-V0.6** tend to generate longer chains, **Ramanujan-Ganit‑R1-14B-V1** consistently produces **more concise responses** without sacrificing performance. 
 #### Average Response Length (Tokens)
 
 | Model            | AIME25 | HMMT25 |
@@ -152,12 +152,12 @@ Our project is available under the MIT License, underscoring our dedication to o
 
 ## Acknowledgments
 We would like to acknowledge the following works for enabling our project:
-DeepseekR1 distill qwen 14b
-NuminaMath 1.5
-OpenR1math
-360LLAMA factory
-verl
-Limo
+- DeepseekR1 distill qwen 14b
+- NuminaMath 1.5
+- OpenR1math
+- 360LLAMA factory
+- verl
+- Limo
 
 ---
 
