@@ -16,16 +16,8 @@ We introduce **Ramanujan-Ganit-R1-14B-V1** - a compute-efficient 14B SOTA reason
 
 ---
 
-## 🧪 Why Another Math Model?
+## 🧪 Motivation
 
-Recent advances like DeepSeek-Math and Light-R1 show the potential of large-scale instruction tuning and distillation. However, these approaches often rely on:
-
-- Larger model scales (32B, 70B+)
-- Expensive context lengths (32K+)
-- Redundant or verbose reasoning
-
-We address these constraints by focusing on **response efficiency** — training the model to generate only the **minimal reasoning needed** to reach a correct solution, while scaling curriculum difficulty gradually. 
-Here, we unveil the recipe of combining SFT and RL to improve the mathematical reasoning capabilities of a 14B model.
 
 
 ---
@@ -160,9 +152,10 @@ To assess reasoning efficiency, we compare the **average response lengths** acro
 ## 📖 Citation
 
 ```bibtex
-@misc{ramanujan14b2024,
-  title={Ramanujan-Ganit-R1-14B},
-  author={Fractal AI Research},
-  year={2024},
-  url={https://huggingface.co/FractalAIResearch/Ramanujan-Ganit-R1-14B-V1}
+@misc{ganit14b2025,
+  title={Ramanujan-Ganit-R1: <$799 Training Recipe for Unlocking Math Reasoning at o4-mini level using R1-distill-14B model under 16K context},
+  author={Kunal Singh and Pradeep Moturi and Ankan Biswas and Siva Gollapali and Sayandeep Bhowmick},
+  howpublished={\url{https://huggingface.co/FractalAIResearch/Ramanujan-Ganit-R1-14B-V1}},
+  note={Hugging Face},
+  year={2025}
 }
