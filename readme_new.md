@@ -143,7 +143,8 @@ To assess reasoning efficiency, we compare the **average response lengths** acro
 | **Ramanujan-Ganit‑R1-14B-V1**      | 10083  | 12100  |
 
 ## Data Decontimination
-Both the benchmarks used (AIME 25 AND HMMT 25) were released after few weeks of the release of the base model. This ensures no contaimination happened during the pre-training of the base model. The dataset corpuses (Numina-Math 1.5 & OpenR1-Math) were released around similar time as that the release time of these exams and has a cutoff<=2024). Moreover,We we anyway conduct a check to ensure training data  We ensure during post-training, the data used 
+
+Both benchmarks used (AIME 25 and HMMT 25) were released a few weeks after the release of the base model, ensuring no contamination occurred during the model's pre-training. The dataset corpora (Numina-Math 1.5 & OpenR1-Math) were released around the same time as these exams, with a cutoff date no later than 2024. Additionally, we conduct checks to verify there is no contamination in the training data.
 
 ## 📜 License
 
@@ -170,3 +171,14 @@ Limo
   note={Hugging Face},
   year={2025}
 }
+```
+
+
+## About Project Ramanujan
+
+We initiated Project Ramanujan approximately one year ago, aiming to unlock intelligence and enhance AI agents by pushing the boundaries of advanced reasoning. Our key accomplishments include:
+- ICLR'25 & NeurIPS'24-MATH-AI: [SBSC: Step-By-Step Coding for Improving Mathematical Olympiad Performance](https://arxiv.org/abs/2502.16666)
+- Winners of HackerCupAI@NeurIPS'24 & ICLR'25-VerifAI: [Stress Testing Based Self-Consistency For Olympiad Programming](https://openreview.net/forum?id=7SlCSjhBsq)
+- CVPR'25-MULA: [TRISHUL: Towards Region Identification and Screen Hierarchy Understanding for Large VLM based GUI Agents
+](https://arxiv.org/abs/2502.08226))
+- Silver Medal in AIMO'24
