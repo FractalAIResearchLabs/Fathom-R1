@@ -114,29 +114,27 @@ Its consistency across diverse mathematical domains highlights its balanced reas
 
 ---
 
-## 🌍 Generalization Beyond Math
+## 🌍 Generalization Beyond Math: GPQA
 
 Notably, we also observe out-of-domain improvement in **GPQA**, even though there wasn't a single instance of science reasoning based questions in our training data. 
-This indicates that training solely on mathematics-focused datasets potentially facilitates generalization across diverse domains, a finding similar to what Light-R1 had observed.
-#### ✅ GPQA Benchmark Comparison
+This indicates that our training methodology mentioned above and training on math wuestions facilitates generalization across diverse domains, a finding similar to what LightR1-14B & LIMO had observed.
+#### ✅ GPQA Benchmark Comparison (16k)
 | **Model**         | **pass@1** | **cons@64** |
 |-------------------|------------|-------------|
-| LightR1‑14B       | 56.94      | 65.15       |
 | R1‑distill‑14B    | 54.19      | 64.14       |
-| R1‑distill‑32B    | 64.57      | 69.70       |
-| R1‑670B           | 71.88      | 74.24       |
+| LightR1‑14B       | 56.94      | 65.15       |
 | Ramanujan-Ganit‑R1-14B-V0.4           | 56.35      | 66.67       |
 | Ramanujan-Ganit‑R1-14B-V0.6           | 58.91      | 63.13       |
 | **Ramanujan-Ganit‑R1-14B-V1**  | 59.13 | 66.16  |
 
-
 ## ✂️ Ablation Study on Token Efficiency
-To assess reasoning token efficiency, we compare the **average token count per question**, under 16k context length, across  AIME25, and HMMT25. WWhile models like **Light-R1-14B**,  **R1-distill‑14B** and **Ramanujan-Ganit‑R1-14B-V0.6** tend to generate longer chains, **Ramanujan-Ganit‑R1-14B-V1** consistently produces **more concise responses** without sacrificing performance. 
+To assess reasoning token efficiency, we compare the **average response token count**, under 16k context length, across  AIME25, and HMMT25. On AIME25, Ramanujan-Ganit‑R1-14B-V1 uses 10% fewer response tokens than LightR1-14B despite having higher pass@1. HMMT25 questions are relatively tougher compared to AIME'25 and tougher questions usually require more thinking tokens. On HMMT25, Ramanujan-Ganit‑R1-14B-V1 uses 4.5% fewer response tokens than LightR1-14B despite having higher pass@1. 
+
 #### Average Response Length (Tokens)
 
 | Model            | AIME25 | HMMT25 |
 |------------------|--------|--------|
-| Light-R1-14B         | 11330  | 12680  |
+| LightR1-14B         | 11330  | 12680  |
 | R1-distill-14B   | 10878  | 12263  |
 | Ramanujan-Ganit‑R1-14B-V0.4          | 10570  | 11950  |
 | Ramanujan-Ganit‑R1-14B-V0.6         | 11236  | 12717  |
