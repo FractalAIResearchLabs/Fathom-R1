@@ -55,7 +55,7 @@ By combining these complementary strengths of the 2 models, **Ramanujan-Ganit-R1
 
 ## 💰 Training Cost
 
-We trained **Ramanujan-Ganit-R1-14B-V1** using a focused, resource-efficient strategy that balances performance with compute budget. Below is the GPU time utilized and the cost incurred
+We developed **Ramanujan-Ganit-R1-14B-V1** using a focused, resource-efficient strategy that balances performance with compute budget. Below is the GPU time utilized and the cost incurred
 
 | Training Method            | GPU Hours (H100) | Cost(USD) |
 |----------------------------|------------------|------|
@@ -99,9 +99,9 @@ We evaluate and compare **Ramanujan-Ganit‑R1-14B-V1** with several baseline mo
 | gpt‑4.5‑preview  | 34.44          | 40.00         | 16.67          | 20.00         |
 | **Open-Source Models**               |                |               |                |               |
 | LightR1‑14B      | 51.15          | 76.67         | 34.11          | 50.00         |
-| R1‑distill‑14B   | 45.5           | 63.33         | 30.00          | 50.00         |
-| R1‑distill‑32B   | 49.64          | 73.33         | 33.02          | 53.33         |
-| R1‑670B          | 61.25          | 83.33         | 42.19          | 56.67         |
+|  DeepSeek-R1-Distill-Qwen-14B   | 45.5           | 63.33         | 30.00          | 50.00         |
+|  DeepSeek-R1-Distill-Qwen-32B   | 49.64          | 73.33         | 33.02          | 53.33         |
+| DeepSeekR1‑670B          | 61.25          | 83.33         | 42.19          | 56.67         |
 | Ramanujan-Ganit‑R1-14B-V0.4         | 50.94          | 73.33         | 33.7           | 40.00         |
 | Ramanujan-Ganit‑R1-14B-V0.6          | 50.63          | 76.67         | 32.19          | 50.00         |
 | **Ramanujan-Ganit‑R1-14B-V1** | **51.88**      | **76.67**     | **35.78**      | **56.66**     |
@@ -121,7 +121,7 @@ This indicates that our training methodology mentioned above and training on mat
 #### ✅ GPQA Benchmark Comparison (16k)
 | **Model**         | **pass@1** | **cons@64** |
 |-------------------|------------|-------------|
-| R1‑distill‑14B    | 54.19      | 64.14       |
+|  DeepSeek-R1-Distill-Qwen-14B    | 54.19      | 64.14       |
 | LightR1‑14B       | 56.94      | 65.15       |
 | Ramanujan-Ganit‑R1-14B-V0.4           | 56.35      | 66.67       |
 | Ramanujan-Ganit‑R1-14B-V0.6           | 58.91      | 63.13       |
@@ -135,7 +135,7 @@ To assess reasoning token efficiency, we compare the **average response token co
 | Model            | AIME25 | HMMT25 |
 |------------------|--------|--------|
 | LightR1-14B         | 11330  | 12680  |
-| R1-distill-14B   | 10878  | 12263  |
+|  DeepSeek-R1-Distill-Qwen-14B   | 10878  | 12263  |
 | Ramanujan-Ganit‑R1-14B-V0.4          | 10570  | 11950  |
 | Ramanujan-Ganit‑R1-14B-V0.6         | 11236  | 12717  |
 | **Ramanujan-Ganit‑R1-14B-V1**      | **10083**  | **12100**  |
