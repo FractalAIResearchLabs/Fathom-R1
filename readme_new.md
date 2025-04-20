@@ -63,10 +63,10 @@ We trained **Ramanujan-Ganit-R1-14B-V1** using a focused, resource-efficient str
 | Ramanujan-Ganit-R1-14B-V0.6     | 48         |    136  |
 | **Total**   | **341**     |    967  |
 
-So, the final Ramanujan-Ganit-R1-14B-V1 took just 967$ to be trained overall! This low training cost highlights the efficiency of our method — enabling high-level mathematical reasoning comparable to **o4-mini** in under **800USD** , all within a **16k context window**.
+So, the final Ramanujan-Ganit-R1-14B-V1 took just 967$ to be trained overall! This low training cost highlights the efficiency of our method — enabling high-level mathematical reasoning comparable to **o4-mini** in under **999USD** , all within a **16k context window**.
 
 ## 📊 Evaluation
-We evaluate Ramanujan-Ganit‑R1-14B-V1 using the same metrics and sampling configuration introduced in the DeepSeek‑R1 paper, namely **pass@1** and **cons@64**. However, our evaluation is conducted under a reduced context window of 16,384 tokens, compared to DeepSeek‑R1’s 32,768 tokens, to better reflect practical deployment constraints.
+We evaluate Ramanujan-Ganit‑R1-14B-V1 using the same metrics and sampling configuration introduced in the DeepSeek‑R1 paper, namely **pass@1** and **cons@64**. However, our evaluation is conducted under a reduced output budget of 16,384 tokens, compared to DeepSeek‑R1’s 32,768 tokens, to better reflect practical deployment constraints.
 
 - **pass@1**: Measures the fraction of problems correctly solved in the first generated sample.
 - **cons@64**: Assesses consistency by sampling 64 reasoning chains per question and computing the majority vote accuracy.
@@ -76,7 +76,7 @@ We evaluate Ramanujan-Ganit‑R1-14B-V1 using the same metrics and sampling conf
 - Temperature: 0.6  
 - top_p: 0.95  
 - Number of sampled chains: 64  
-- Context window: 16,384 tokens  
+- Context: 16,384 tokens  
 
 This setup allows us to benchmark Ramanujan-Ganit-R1-14B‑V1’s reasoning performance and stability under realistic memory and inference budgets, while maintaining compatibility with the DeepSeek‑R1 evaluation protocol.
 
@@ -125,7 +125,7 @@ This indicates that our training methodology mentioned above and training on mat
 | LightR1‑14B       | 56.94      | 65.15       |
 | Ramanujan-Ganit‑R1-14B-V0.4           | 56.35      | 66.67       |
 | Ramanujan-Ganit‑R1-14B-V0.6           | 58.91      | 63.13       |
-| **Ramanujan-Ganit‑R1-14B-V1**  | 59.13 | 66.16  |
+| **Ramanujan-Ganit‑R1-14B-V1**  | **59.13** | **66.16**  |
 
 ## ✂️ Ablation Study on Token Efficiency
 To assess reasoning token efficiency, we compare the **average response token count**, under 16k context length, across  AIME25, and HMMT25. On AIME25, Ramanujan-Ganit‑R1-14B-V1 uses 10% fewer response tokens than LightR1-14B despite having higher pass@1. HMMT25 questions are relatively tougher compared to AIME'25 and tougher questions usually require more thinking tokens. On HMMT25, Ramanujan-Ganit‑R1-14B-V1 uses 4.5% fewer response tokens than LightR1-14B despite having higher pass@1. 
@@ -138,7 +138,7 @@ To assess reasoning token efficiency, we compare the **average response token co
 | R1-distill-14B   | 10878  | 12263  |
 | Ramanujan-Ganit‑R1-14B-V0.4          | 10570  | 11950  |
 | Ramanujan-Ganit‑R1-14B-V0.6         | 11236  | 12717  |
-| **Ramanujan-Ganit‑R1-14B-V1**      | 10083  | 12100  |
+| **Ramanujan-Ganit‑R1-14B-V1**      | **10083**  | **12100**  |
 
 ## Data Decontimination
 
