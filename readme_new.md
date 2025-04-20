@@ -1,4 +1,4 @@
-# 🧮 Ramanujan-Ganit-R1: <$999 Training Recipe for Unlocking Math Reasoning at o4-mini level using R1-distill-14B model under 16K context
+# 🧮 Ramanujan-Ganit-R1: <$999 Training Recipe for Unlocking Math Reasoning at o4-mini level using R1-distilled-14B model under 16K context
 
 
 <div align="center">
