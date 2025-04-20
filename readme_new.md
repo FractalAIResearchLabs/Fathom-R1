@@ -49,7 +49,7 @@ The resulting model is **Ramanujan-Ganit-R1-14B-v0.6**, a model that demonstrate
 The final model, **Ramanujan-Ganit-R1-14B-V1**, is obtained by **merging** the 2 individual reasoning models from the aforementioned training stages:
 
 - **Ramanujan-Ganit-R1-14B-V0.4 (RL + SFT)** contributes the ability to generate efficient, well-articulated reasoning chains that are as brief as they are correct.
-- **Ramanujan-Ganit-R1-14B-V0.6 (Curriculum SFT)** enhances resilience on difficult problems and promotes stepwise learning across complexity levels.
+- **Ramanujan-Ganit-R1-14B-V0.6 (Iterative Curriculum SFT)** enhances resilience on difficult problems and promotes stepwise learning across complexity levels.
 
 By combining these complementary strengths of the 2 models, **Ramanujan-Ganit-R1-14B-V1** maximizes its potential of solving highly complicated math problems accurately, while simultaneously offering a **concise explanation** for the same.
 
