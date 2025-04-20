@@ -114,9 +114,9 @@ Its consistency across diverse mathematical domains highlights its balanced reas
 
 ---
 
-## 🌍 Generalization Beyond Math: GPQA
+## 🌍 Generalization Beyond Math: GPQA-Diamond
 
-Notably, we also observe out-of-domain improvement in **GPQA**, even though there wasn't a single instance of science reasoning based questions in our training data. 
+Notably, we also observe out-of-domain improvement in **GPQA-Diamond**, even though there wasn't a single instance of science reasoning based questions in our training data. 
 This indicates that our training methodology mentioned above and training on math wuestions facilitates generalization across diverse domains, a finding similar to what LightR1-14B & LIMO had observed.
 #### ✅ GPQA Benchmark Comparison (16k)
 | **Model**         | **pass@1** | **cons@64** |
@@ -152,10 +152,10 @@ Our project is available under the MIT License, underscoring our dedication to o
 We would like to acknowledge the following works for enabling our project:
 - DeepseekR1 distill qwen 14b
 - NuminaMath 1.5
-- OpenR1math
+- OpenR1-Math
 - 360LLAMA factory
 - verl
-- Limo
+- LIMO
 
 ---
 
