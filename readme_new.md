@@ -46,11 +46,11 @@ The resulting model is **Ramanujan-Ganit-R1-14B-v0.6**, a model that demonstrate
 
 
 ## Model Merging
-The final model, **Ramanujan-Ganit-R1-14B-V1**, is obtained by **merging** the 2 individual reasoning models from the aforementioned training stages:
+The final model, **Ramanujan-Ganit-R1-14B-V1**, is obtained by **merging** the 2 reasoning models obtained via aforementioned training stages:
 
-- **Ramanujan-Ganit-R1-14B-V0.4 (RL + SFT)** contributes the ability to generate efficient, well-articulated reasoning chains that are as brief as they are correct.
-- **Ramanujan-Ganit-R1-14B-V0.6 (Iterative Curriculum SFT)** enhances resilience on difficult problems and promotes stepwise learning across complexity levels.
-
+- **Ramanujan-Ganit-R1-14B-V0.4 (RL + SFT)**: This checkpoint during our internal evaluations gave higher pass@k and also contributes the ability to generate efficient, well-articulated reasoning chains that are as brief as they are correct.
+- **Ramanujan-Ganit-R1-14B-V0.6 (Iterative Curriculum SFT)** This checkpoint obtained higher maj@k scores and hence had less variability over multiple runs.
+  
 By combining these complementary strengths of the 2 models, **Ramanujan-Ganit-R1-14B-V1** maximizes its potential of solving highly complicated math problems accurately, while simultaneously offering a **concise explanation** for the same.
 
 ## 💰 Training Cost
@@ -116,7 +116,7 @@ Its consistency across diverse mathematical domains highlights its balanced reas
 
 ## 🌍 Generalization Beyond Math: GPQA-Diamond
 
-Notably, we also observe out-of-domain improvement in **GPQA-Diamond**, even though there wasn't a single instance of science reasoning based questions in our training data. 
+Notably, we also observe out-of-domain improvement in **GPQA-Diamond**, even though there wasn't a single instance of non-math questions in our training data. 
 This indicates that our training methodology mentioned above and training on math wuestions facilitates generalization across diverse domains, a finding similar to what LightR1-14B & LIMO had observed.
 #### ✅ GPQA Benchmark Comparison (16k)
 | **Model**         | **pass@1** | **cons@64** |
