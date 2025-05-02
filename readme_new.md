@@ -164,7 +164,7 @@ We would like to acknowledge the following works for enabling our project:
 ```bibtex
 @misc{ganit14b2025,
   title={Ramanujan-Ganit-R1: <$799 Training Recipe for Unlocking Math Reasoning at o4-mini level using R1-distill-14B model under 16K context},
-  author={Kunal Singh and Pradeep Moturi and Ankan Biswas and Siva Gollapali and Sayandeep Bhowmick},
+  author={Kunal Singh and Pradeep Moturi and Ankan Biswas and Siva Gollapalli and Sayandeep Bhowmick},
   howpublished={\url{https://huggingface.co/FractalAIResearch/Ramanujan-Ganit-R1-14B-V1}},
   note={Hugging Face},
   year={2025}
