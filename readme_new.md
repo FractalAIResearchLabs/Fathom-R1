@@ -18,7 +18,7 @@ We introduce **Ramanujan-Ganit-R1-14B-V1** - a compute-efficient 14B SOTA reason
 
 ## 🧪 Motivation
 
-
+Thinking longer during inference time has shown to unlock superior reasoning abilities and expert level performance.  
 
 ---
 
@@ -109,7 +109,7 @@ We evaluate and compare **Ramanujan-Ganit‑R1-14B-V1** with several baseline mo
 **Ramanujan-Ganit‑R1-14B-V1** demonstrates highly competitive performance across all datasets, improving over the original R1-distilled models while closely matching or surpassing other strong baselines in several settings. 
 On both AIME 25 and HMMT 25, our model shows the highest pass@1 as well as cons@64 scores among all the open-source models (including the bigger R1-Distilled-32B model), with R1-670B being the only exception.
 
-In fact, we observe that Ramanujan-Ganit-R1-14B-V1 is superior to even some of the OpenAI reasoning models, including **o1-mini** and **o3-mini (low)** and it's performance closely matches that of newly released **o4-mini (low)**.
+In fact, we observe that Ramanujan-Ganit-R1-14B-V1 is superior to the first two mini-class generations of OpenAI reasoning models, including **o1-mini** and **o3-mini (low)** and it's performance closely matches that of newly released **o4-mini (low)**.
 Its consistency across diverse mathematical domains highlights its balanced reasoning ability.
 
 ---
