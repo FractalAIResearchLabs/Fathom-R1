@@ -18,7 +18,7 @@
 ## Training Dataset
 Our journey begins by curating a high-quality mathematical corpus from several open-source datasets:
 
-- **Open-R1**
+- **Open-R1** - default subset
 - **Numina – Olympiads & AOPS_forum**
 - After rigorous deduplication and decontamination, we consolidated approximately **~100K unique problems**, forming the foundation for all subsequent trainings.
 ---
