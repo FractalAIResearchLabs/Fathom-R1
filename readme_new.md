@@ -18,7 +18,7 @@ We introduce **Ramanujan-Ganit-R1-14B-V1** - a compute-efficient 14B SOTA reason
 
 ## 🧪 Motivation
 
-Thinking longer during inference time has shown to unlock superior reasoning abilities and expert level performance.  Since the open-source release of DeepSeek R1 series models, multiple efforts [add names] have tried to reproduce the results (easpecially at <=32B scale) either via distillation or RL based fine-tuning on a non-reasoning model. 
+Thinking longer during inference time has shown to unlock superior reasoning abilities and expert level performance on challenging queries and tasks.  Since the open-source release of DeepSeek R1 series models, multiple open-source efforts [s1, LIMO, Light-R1, add more] have focused on reproducing the results (easpecially at <=32B scale) either via distillation or RL based fine-tuning on top of non-reasoning models. Certain recent methods such as [DeepscaleR, DeepCoder, Light-R1] have managed to extend the performance further of the reasoning models
 
 ---
 
