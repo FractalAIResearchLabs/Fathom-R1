@@ -48,7 +48,7 @@ The resulting model is **Ramanujan-Ganit-R1-14B-v0.6**, a model that demonstrate
 ## Model Merging
 The final model, **Ramanujan-Ganit-R1-14B-V1**, is obtained by **merging** the 2 reasoning models obtained via aforementioned training stages:
 
-- **Ramanujan-Ganit-R1-14B-V0.4 (RL + SFT)**: This checkpoint during our internal evaluations gave higher pass@k and also contributes the ability to generate efficient, well-articulated reasoning chains that are as brief as they are correct.
+- **Ramanujan-Ganit-R1-14B-V0.4 (RL + SFT)**: This checkpoint during our internal evaluations gave higher pass@k and also contributes the ability to generate relatively efficient reasoning chains while improving the accuracy over the baseline.
 - **Ramanujan-Ganit-R1-14B-V0.6 (Iterative Curriculum SFT)** This checkpoint obtained higher maj@k scores and hence had less variability over multiple runs.
   
 By combining these complementary strengths of the 2 models, **Ramanujan-Ganit-R1-14B-V1** maximizes its potential of solving highly complicated math problems accurately, while simultaneously offering a **concise explanation** for the same.
