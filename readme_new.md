@@ -18,9 +18,9 @@ We introduce **Ramanujan-Ganit-R1-14B-V1** - a compute-efficient 14B SOTA reason
 
 ## 🧪 Motivation
 
-Thinking longer during inference time has shown to unlock superior reasoning abilities and expert level performance on challenging queries and tasks.  Since the open-source release of DeepSeek R1 series models, multiple open-source efforts have focused on reproducing the results (easpecially at <=32B scale) either via distillation or RL based fine-tuning on top of non-reasoning models. Though in most cases, these efforts, at best, could come close to the performance R1 series models but are unable to surpass them.  Certain recent methods start with the existing reasoning models and have managed to extend the performance of these models. However, the training runs for these methods are often costly and they rely on longer sequence lengths for higher accuracy. 
+Thinking longer during inference time has shown to unlock superior reasoning abilities and expert level performance on challenging queries and tasks.  Since the open-source release of DeepSeek R1 series models, multiple open-source efforts have focused on reproducing the results (easpecially at <=32B scale) either via distillation or RL based fine-tuning on top of non-reasoning models. Though in most cases, these efforts, at best, could come close to the performance R1 series models but are unable to surpass them. Thanks to open Certain recent methods start with the existing reasoning models and have managed to extend the performance of these models. However, the training runs for these methods are often costly and they rely on longer sequence lengths for higher accuracy. 
 
-Given the latest findings that raises the question on the correctness of the intermediate steps of the long COT in reasoning models, its important from interpretability, reliability and saftey pov to ensure the reasoning chains are not inefficiently long. Hence, in this study, we work towards unlocking performance improvement of the reasoning models without training at very high (24k/32k) sequence length and restricting it to 16k context. We believe, while extremely long reasoning chains are still necessary for really challenging tasks, its also important to maximize the performance at lower context first before we proceed to longer reasoning chains. 
+Given the latest findings that raises the question on the correctness of the intermediate steps of the long COT in reasoning models, its important from interpretability, reliability and saftey pov to ensure the reasoning chains are not inefficiently long. Hence, in this study, we work towards unlocking performance improvement of the reasoning models without training at very high (24k/32k) sequence length and restricting it to 16k context. We believe, while extremely long reasoning chains are still necessary for really challenging tasks, its also important to maximize the performance at lower context first before we proceed extending reasoning chains. 
 
 ---
 
@@ -65,7 +65,7 @@ We developed **Ramanujan-Ganit-R1-14B-V1** using a focused, resource-efficient s
 | Ramanujan-Ganit-R1-14B-V0.6     | 48         |    136  |
 | **Total**   | **341**     |    967  |
 
-So, the final Ramanujan-Ganit-R1-14B-V1 took just 967$ to be trained overall! This low training cost highlights the efficiency of our method — enabling high-level mathematical reasoning comparable to **o4-mini** in under **999USD** , all within a **16k context budget**.
+So, the final Ramanujan-Ganit-R1-14B-V1 took just 967$ to be trained overall! This low training cost highlights the efficiency of our method — enabling high-level mathematical reasoning comparable to **o4-mini** in under **999USD** , all within a **16k sequence length budget**.
 
 ## 📊 Evaluation
 We evaluate Ramanujan-Ganit‑R1-14B-V1 using the same metrics and sampling configuration introduced in the DeepSeek‑R1 paper, namely **pass@1** and **cons@64**. However, our evaluation is conducted under a reduced output budget of 16,384 tokens, compared to DeepSeek‑R1’s 32,768 tokens, to better reflect practical deployment constraints.
