@@ -29,10 +29,15 @@ Given the latest findings that raises the question on the correctness of the int
 
 The core strategy used behind creating this checkpoint is to: First, leverage GRPO to improve reasoning of Deepseek-R1-Distilled-Qwen-14B at a lower sequence length, 6k, on a carefully curated dataset to ensure rapid improvement with minimal training steps. Second, we perform SFT on a carefully curated dataset of questions ( hard to very hard difficulty spectrum) and the corresponding shortest possible reasoning solution for each question.
 
-More details: From R1 training, we see the consistent increase of response length as we train longer. We aim to instill the model with a preference for brevity without compromising correctness. 
-We curate a seed dataset by sampling multiple responses from DeepSeek-R1-Distill-Qwen-14B model. We then calculate solve rates for each question under a strict 6,000-token constraint. We only retain the questions that fall between  0.0 and 0.5  hence collecting solutions tha could be solved under 6k tokens and are difficult as well. This forms our RL Compression dataset. 
-Staring from DeepSeek-R1-Distill-Qwen-14B as the base model, we train the model using the GRPO algorithm, with a 6k token limit. We see a consistent increase in performance as the model learns to generate concise responses from the decreasing clip ratio, response length and increasing reward. The obtained model has learnt to generate responses below 6k tokens and outperforms the base model at lower token limits. 
+**More details:** From R1 training, we see the consistent increase of response length as we train longer. We aim to instill the model with a preference for brevity without compromising correctness. 
+
+We curate a seed dataset by sampling multiple responses from **DeepSeek-R1-Distill-Qwen-14B** model. We then calculate solve rates for each question under a strict 6,000-token constraint. We only retain the questions that fall between  0.0 and 0.5  hence collecting solutions tha could be solved under 6k tokens and are difficult as well. This forms our RL Compression dataset.
+
+Staring from **DeepSeek-R1-Distill-Qwen-14B** as the base model, we train the model using the GRPO algorithm, with a 6k token limit. We see a consistent increase in performance as the model learns to generate concise responses from the decreasing clip ratio, response length and increasing reward. The obtained model has learnt to generate responses below 6k tokens and outperforms the base model at lower token limits. 
+<img width="1370" alt="image" src="https://github.com/user-attachments/assets/3a49690d-0160-4116-b12f-5e91240e17a6" />
+
 But, we now want the model to outperform the base model at higher response lengths.  We now collect shortest responses  for hard problems — specifically, questions with solve rates between 0.1 and 0.4. This forms our V0.4 SFT dataset. 
+
 Through supervised fine-tuning on this dataset, the model learns to explain its reasoning in a more precise and efficient manner — elaborating only when necessary and avoiding redundant or tangential steps. The resulting model is named Ramanujan-Ganit-R1-14B-v0.4, optimized for concise yet accurate mathematical reasoning.
  
  
