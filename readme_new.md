@@ -38,7 +38,9 @@ We begin by curating a high-quality mathematical corpus from the following open-
 
 The core strategy used behind creating this checkpoint is a two-stage pipeline: First, leverage GRPO to improve reasoning of Deepseek-R1-Distilled-Qwen-14B at a lower sequence length, 6k, on a carefully curated dataset to ensure rapid improvement with minimal training steps. Second, we perform SFT, at max 16k tokens sequence length, on a carefully curated dataset of questions ( hard to very hard difficulty spectrum) and the corresponding shortest possible reasoning solution for each question. 
 
+
 - **First Stage (Leveraging RL for effecient test-time thinking):** We start with curating a seed dataset which ensures the policy receives minumium level reward while still having room for growth. The dataset comparises of questions having solve rates (at 6K context) between a certain range. This forms our RL Compression dataset comprising of 7.7K questions. Staring from DeepSeek-R1-Distill-Qwen-14B as the base model, we train the model using the GRPO algorithm, with a 6k token sequence length limit. We see a consistent increase in performance as the model learns to generate concise responses from the decreasing clip ratio, response length and increasing reward. The obtained model has learnt to generate responses below 6k tokens and outperforms the base model at lower token limits. 
+
 <img width="1370" alt="image" src="https://github.com/user-attachments/assets/3a49690d-0160-4116-b12f-5e91240e17a6" />
 
 - **Second Stage (Leveraging SFT to improve reasoning efficiently at higher sequence length):** But, we now want the model to outperform the base model at higher response lengths.  We now collect shortest responses  for hard problems — specifically, questions with solve rates between 0.1 and 0.4. This forms our V0.4 SFT dataset. 
