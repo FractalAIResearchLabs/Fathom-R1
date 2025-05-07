@@ -43,7 +43,9 @@ The core strategy used behind creating this checkpoint is a two-stage pipeline: 
 
 First Stage (Leveraging RL for effecient test-time thinking): We start with curating a seed dataset which ensures the policy receives minumium level reward while still having room for growth. The dataset comparises of questions having solve rates (at 6K context) between a certain range. This forms our RL Compression dataset comprising of 7.7K questions.
 
-Staring from **DeepSeek-R1-Distill-Qwen-14B** as the base model, we train the model using the GRPO algorithm, with a 6k token limit. We see a consistent increase in performance as the model learns to generate concise responses from the decreasing clip ratio, response length and increasing reward. The obtained model has learnt to generate responses below 6k tokens and outperforms the base model at lower token limits. 
+
+Staring from **DeepSeek-R1-Distill-Qwen-14B** as the base model, we train the model using the GRPO algorithm, with a 6k token limit. From below attached figure, We observe consistent increase in training reward while the clip ratio decreases. This shows that the model learns to generate responses below 6k tokens and outperforms the base model at lower token limits. 
+
 <img width="1370" alt="image" src="https://github.com/user-attachments/assets/3a49690d-0160-4116-b12f-5e91240e17a6" />
 
 But, we now want the model to outperform the base model at higher response lengths.  We now collect shortest responses  for hard problems — specifically, questions with solve rates between 0.1 and 0.4. This forms our V0.4 SFT dataset. 
