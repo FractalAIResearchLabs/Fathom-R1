@@ -24,10 +24,20 @@ Given the latest findings that raises the question on the correctness of the int
 
 ---
 
+## Training Dataset
+We begin by curating a high-quality mathematical corpus from the following open-source datasets:
+
+- **Open-R1** - default subset
+- **Numina – Olympiads & AOPS_forum** (word problems, float type answers)
+- After rigorous deduplication and decontamination, we consolidated approximately **~100K unique problems**, forming the initial corpus for all subsequent trainings.
+---
+
+
 ## 🏗️ Post-Training Strategies
 ### Training Recipe for Ramanujan-Ganit-R1-14B-v0.4
 
-The core strategy used behind creating this checkpoint is to: First, leverage GRPO to improve reasoning of Deepseek-R1-Distilled-Qwen-14B at a lower sequence length, 6k, on a carefully curated dataset to ensure rapid improvement with minimal training steps. Second, we perform SFT on a carefully curated dataset of questions ( hard to very hard difficulty spectrum) and the corresponding shortest possible reasoning solution for each question.
+The core strategy used behind creating this checkpoint is a two-stage pipeline: First, leverage GRPO to improve reasoning of Deepseek-R1-Distilled-Qwen-14B at a lower sequence length, 6k, on a carefully curated dataset to ensure rapid improvement with minimal training steps. Second, we perform SFT on a carefully curated dataset of questions ( hard to very hard difficulty spectrum) and the corresponding shortest possible reasoning solution for each question.
+
 
 **More details:** From R1 training, we see the consistent increase of response length as we train longer. We aim to instill the model with a preference for brevity without compromising correctness. 
 
