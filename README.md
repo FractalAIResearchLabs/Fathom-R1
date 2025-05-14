@@ -88,7 +88,7 @@ In fact, we observe that Ramanujan-Ganit-R1-14B is superior to the first two gen
 ## 🌍 Generalization Beyond Math: GPQA-Diamond
 
 Notably, we also observe out-of-domain improvement in **GPQA-Diamond**, even though there wasn't a single instance of non-math questions in our training data. 
-This indicates that our training methodology mentioned above and training on math wuestions facilitates generalization across diverse domains, a finding similar to what LightR1-14B & LIMO had observed.
+This indicates that our training methodology mentioned above and training on math questions facilitates generalization across diverse domains, a finding similar to what LightR1-14B & LIMO had observed.
 #### ✅ GPQA Benchmark Comparison (16k)
 | **Model**         | **pass@1** | **cons@64** |
 |-------------------|------------|-------------|
