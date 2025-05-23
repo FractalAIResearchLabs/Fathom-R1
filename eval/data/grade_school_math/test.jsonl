@@ -208,3 +208,24 @@
 {"problem": "教师节到了，校工会买了 320 个苹果， 240 个桔子， 200 个香蕉来慰问退休老职工．请问：用这些水果最多可以分成多少份同样的礼物？在每份礼物中，苹果，桔子，香蕉各有多少个？", "answer": "最多可以分成 40 份礼物；每份礼物中有 8 个苹果，6 个桔子，5 个香蕉。"}
 {"problem": "一块长方形草地，长 120 米，宽 90 米，现在在它的四周种树，要求四个角和各边中点都要求种树，且相邻两棵树之间的距离都相等，请问：最少要种多少棵树？", "answer": "28"}
 {"problem": "甲数和乙数的最大公约数是 6 ，最小公倍数是 90 ．如果甲数是 18 ，那么乙数是多少？", "answer": "30"}
+{"problem": "计算：$\\frac{5}{8}+\\frac{7}{12}$", "answer": "$\\frac{31}{24}$"}
+{"problem": "计算：$2\\frac{1}{5} \\div \\frac{11}{7}$", "answer": "$\\frac{14}{11}$"}
+{"problem": "计算：$\\left(1-\\frac{2}{5}\\right) \\times \\left(1+\\frac{3}{4}\\right)$", "answer": "$\\frac{21}{40}$"}
+{"problem": "简化：$\\frac{6}{9}+\\frac{8}{12}$", "answer": "$\\frac{10}{9}$"}
+{"problem": "若 $x = \\frac{2}{3}$，求 $3x^2 - 2x + 1$ 的值", "answer": "$\\frac{1}{3}$"}
+{"problem": "计算：$5 \\div (1\\frac{2}{3})$", "answer": "$3$"}
+{"problem": "计算：$\\frac{3}{7}+\\frac{4}{9}-\\frac{2}{21}$", "answer": "$\\frac{65}{63}$"}
+{"problem": "比较大小：$\\frac{11}{25}$ 与 $\\frac{9}{20}$", "answer": "$\\frac{11}{25} < \\frac{9}{20}$"}
+{"problem": "求 $\\frac{7}{10}$ 的倒数", "answer": "$\\frac{10}{7}$"}
+{"problem": "化简：$\\frac{45}{60}$", "answer": "$\\frac{3}{4}$"}
+{"problem": "将分数 $\\frac{17}{40}$ 转化为小数", "answer": "0.425"}
+{"problem": "计算：$\\left(\\frac{1}{2} + \\frac{1}{3} + \\frac{1}{6}\\right) \\times 6$", "answer": "6"}
+{"problem": "判断：$\\frac{55}{121}$ 是否是最简分数", "answer": "不是"}
+{"problem": "一个数的 $\\frac{2}{5}$ 是 16，求这个数", "answer": "40"}
+{"problem": "若 $\\frac{a}{b} = \\frac{3}{4}$，求 $\\frac{2a}{3b}$", "answer": "$\\frac{1}{2}$"}
+{"problem": "已知 $x - \\frac{1}{3} = \\frac{2}{5}$，求 $x$", "answer": "$\\frac{11}{15}$"}
+{"problem": "化简：$\\frac{8x^2}{4x}$", "answer": "$2x$"}
+{"problem": "计算：$0.25 + \\frac{1}{4} + \\frac{3}{8}$", "answer": "1"}
+{"problem": "将小数 $0.625$ 转化为最简分数", "answer": "$\\frac{5}{8}$"}
+{"problem": "判断：$\\frac{14}{49}$ 和 $\\frac{2}{7}$ 是否相等", "answer": "相等"}
+
